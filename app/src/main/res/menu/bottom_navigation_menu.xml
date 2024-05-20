@@ -1,0 +1,12 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/tab_presensi"
+        android:enabled="true"
+        android:icon="@drawable/ic_presensi"
+        android:title="@string/presensi_label"/>
+    <item
+        android:id="@+id/tab_jadwal"
+        android:enabled="true"
+        android:icon="@drawable/ic_presensi"
+        android:title="@string/jadwal_label"/>
+</menu>

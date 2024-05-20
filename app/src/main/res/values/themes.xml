@@ -12,5 +12,28 @@
         <!-- Status bar color. -->
         <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
+        <item name="colorOnSecondaryContainer">@color/primary</item>
+        <item name="bottomNavigationStyle">@style/Widget.App.BottomNavigationView</item>
+    </style>
+
+    <style name="Widget.App.BottomNavigationView" parent="Widget.Material3.BottomNavigationView">
+        <item name="materialThemeOverlay">@style/ThemeOverlay.App.BottomNavigationView</item>
+    </style>
+
+    <style name="ThemeOverlay.App.BottomNavigationView" parent="">
+        <item name="colorOnSurface">@color/primary</item>
+    </style>
+
+    <style name="NavigationLabelActiveStyle" parent="Theme.AbsenSPN">
+        <item name="android:fontFamily">@font/poppins_regular</item>
+    </style>
+
+    <style name="NavigationLabelInactiveStyle" parent="Theme.AbsenSPN">
+        <item name="android:fontFamily">@font/poppins_regular</item>
+    </style>
+
+    <!-- Bottom Bar Indicator Styles -->
+    <style name="BottomBarIndicatorStyle">
+        <item name="android:height">0dp</item>
     </style>
 </resources>
