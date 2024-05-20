@@ -7,6 +7,16 @@
     <item
         android:id="@+id/tab_jadwal"
         android:enabled="true"
-        android:icon="@drawable/ic_presensi"
+        android:icon="@drawable/ic_jadwal"
         android:title="@string/jadwal_label"/>
+    <item
+        android:id="@+id/tab_rekap"
+        android:enabled="true"
+        android:icon="@drawable/ic_rekap"
+        android:title="@string/rekap_label"/>
+    <item
+        android:id="@+id/tab_profile"
+        android:enabled="true"
+        android:icon="@drawable/ic_profile"
+        android:title="@string/profile_label"/>
 </menu>

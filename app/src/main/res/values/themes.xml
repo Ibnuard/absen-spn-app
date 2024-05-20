@@ -25,10 +25,12 @@
     </style>
 
     <style name="NavigationLabelActiveStyle" parent="Theme.AbsenSPN">
+        <item name="android:textSize">12sp</item>
         <item name="android:fontFamily">@font/poppins_regular</item>
     </style>
 
     <style name="NavigationLabelInactiveStyle" parent="Theme.AbsenSPN">
+        <item name="android:textSize">10sp</item>
         <item name="android:fontFamily">@font/poppins_regular</item>
     </style>
 
