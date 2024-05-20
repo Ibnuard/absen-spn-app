@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Absen SPN</string>
+    <string name="username">Username</string>
+    <string name="password">Password</string>
+    <string name="welcome">Selamat Datang</string>
+    <string name="login_desc">Login to your account</string>
+</resources>
