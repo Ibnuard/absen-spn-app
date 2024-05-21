@@ -10,4 +10,26 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="rekap_label">Rekap</string>
     <string name="profile_label">Profile</string>
+    <string name="live_attendance_label">Live Attendance</string>
+    <string name="select_class">Pilih Kelas</string>
+    <string name="btn_clockin">Clock In</string>
+    <string name="btn_clockout">Clock Out</string>
+    <string name="select_mapel">Pilih Mata Pelajaran</string>
+    <string name="jadwal_title">Jadwal Pelajaran</string>
+    <string-array name="kelas_list">
+        <item>Kelas Java</item>
+        <item>Kelas Kotlin</item>
+        <item>Kelas Python</item>
+        <item>Kelas CPP</item>
+    </string-array>
+    <string-array name="mapel_list">
+        <item>Mapel Pmerograman Dasar</item>
+        <item>Mapel OOP</item>
+        <item>Mapel Machine Learning</item>
+        <item>Mapel Data Scientist</item>
+        <item>Mapel Pmerograman Dasar II</item>
+        <item>Mapel OOP II</item>
+        <item>Mapel Machine Learning II</item>
+        <item>Mapel Data Scientist II</item>
+    </string-array>
 </resources>

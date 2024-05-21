@@ -7,4 +7,6 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="bottomBarBackground">#F6F6F6</color>
+    <color name="white_variant">#F4F4F4</color>
+    <color name="desc_label">#5D5D5D</color>
 </resources>
