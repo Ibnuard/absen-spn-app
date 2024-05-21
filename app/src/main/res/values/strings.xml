@@ -24,6 +24,7 @@
     <string name="tempat_lahir_label">Tempat Lahir</string>
     <string name="nomor_label">Nomor Handphone</string>
     <string name="data_pribadi_title">Data Pribadi</string>
+    <string name="rekap_title">Rekap</string>
     <string-array name="kelas_list">
         <item>Kelas Java</item>
         <item>Kelas Kotlin</item>
