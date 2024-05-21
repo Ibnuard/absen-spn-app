@@ -11,7 +11,6 @@
         <com.google.android.material.appbar.AppBarLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
-
             <com.google.android.material.appbar.MaterialToolbar
                 android:id="@+id/topAppBar"
                 android:layout_width="match_parent"
@@ -22,7 +21,11 @@
                 app:titleCentered="true"
                 app:titleTextAppearance="@style/appBarTitleStyle"
                 app:title="@string/jadwal_title"/>
-
+        </com.google.android.material.appbar.AppBarLayout>
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
             <com.google.android.material.card.MaterialCardView
                 style="@style/Widget.Material3.CardView.Outlined"
                 android:layout_width="match_parent"
@@ -87,9 +90,7 @@
                             android:text="08.00-10.00"/>
                     </LinearLayout>
                 </RelativeLayout>
-
             </com.google.android.material.card.MaterialCardView>
-
-        </com.google.android.material.appbar.AppBarLayout>
+        </androidx.core.widget.NestedScrollView>
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </FrameLayout>

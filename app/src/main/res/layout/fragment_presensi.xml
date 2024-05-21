@@ -70,7 +70,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/poppins_bold"
-                    android:textSize="32sp"
+                    android:textSize="24sp"
                     android:textColor="@color/primary"
                     android:text="09.00"/>
                 <TextView
@@ -78,7 +78,7 @@
                     android:layout_height="wrap_content"
                     android:text="Senin, 18 April 2024"
                     android:fontFamily="@font/poppins_regular"
-                    android:textSize="14sp"
+                    android:textSize="12sp"
                     android:textColor="@color/desc_label"/>
                 <com.google.android.material.textfield.TextInputLayout
                     style="@style/Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
@@ -98,7 +98,7 @@
                         android:inputType="none"
                         android:text="@string/select_class"
                         android:fontFamily="@font/poppins_medium"
-                        android:textSize="14sp"
+                        android:textSize="12sp"
                         android:textColor="@color/black"
                         android:dropDownHeight="200dp"
                         />
@@ -121,7 +121,7 @@
                         android:inputType="none"
                         android:text="@string/select_mapel"
                         android:fontFamily="@font/poppins_medium"
-                        android:textSize="14sp"
+                        android:textSize="12sp"
                         android:textColor="@color/black"
                         android:dropDownHeight="200dp"
                         />

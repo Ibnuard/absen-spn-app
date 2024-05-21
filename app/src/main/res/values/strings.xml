@@ -16,6 +16,14 @@
     <string name="btn_clockout">Clock Out</string>
     <string name="select_mapel">Pilih Mata Pelajaran</string>
     <string name="jadwal_title">Jadwal Pelajaran</string>
+    <string name="profile_title">Profile</string>
+    <string name="kelas_label">Kelas</string>
+    <string name="tahun_masuk_label">Tahun Masuk</string>
+    <string name="wali_kelas_label">Wali Kelas</string>
+    <string name="tgl_lahir_label">Tanggal Lahir</string>
+    <string name="tempat_lahir_label">Tempat Lahir</string>
+    <string name="nomor_label">Nomor Handphone</string>
+    <string name="data_pribadi_title">Data Pribadi</string>
     <string-array name="kelas_list">
         <item>Kelas Java</item>
         <item>Kelas Kotlin</item>
