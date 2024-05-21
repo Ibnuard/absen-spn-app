@@ -67,6 +67,7 @@
                     android:textColor="@color/black"
                     android:text="@string/live_attendance_label" />
                 <TextView
+                    android:id="@+id/jam_view"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/poppins_bold"
@@ -74,6 +75,7 @@
                     android:textColor="@color/primary"
                     android:text="09.00"/>
                 <TextView
+                    android:id="@+id/date_view"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Senin, 18 April 2024"
