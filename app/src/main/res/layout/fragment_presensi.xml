@@ -24,7 +24,7 @@
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_toRightOf="@id/profile_pic"
+                android:layout_toEndOf="@id/profile_pic"
                 android:layout_marginHorizontal="14dp"
                 android:layout_centerVertical="true"
                 android:orientation="vertical">
@@ -41,7 +41,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/poppins_regular"
-                    android:textSize="10sp"
+                    android:textSize="12sp"
                     android:textColor="@color/white_variant"
                     android:text="123456789"/>
             </LinearLayout>
@@ -50,6 +50,7 @@
                 android:layout_centerVertical="true"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:contentDescription="logout button"
                 android:src="@drawable/ic_logout"/>
         </RelativeLayout>
         <com.google.android.material.card.MaterialCardView
@@ -75,7 +76,7 @@
                     android:fontFamily="@font/poppins_bold"
                     android:textSize="24sp"
                     android:textColor="@color/primary"
-                    android:text="88.88"/>
+                    android:text="--.--"/>
                 <TextView
                     android:id="@+id/date_view"
                     android:layout_width="wrap_content"
