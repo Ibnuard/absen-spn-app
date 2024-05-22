@@ -47,6 +47,7 @@ class LoginActivity : AppCompatActivity() {
             val isInputValid = InputUtils.isAllFieldComplete(tfUsername, tfPassword)
 
             if (isInputValid){
+                spinner.show(supportFragmentManager, LoadingModal.TAG)
                 onLogin(username, password)
             }
         }
@@ -62,6 +63,7 @@ class LoginActivity : AppCompatActivity() {
                 call: Call<ApiResponse<UserLoginResponse>>,
                 response: Response<ApiResponse<UserLoginResponse>>
             ) {
+                spinner.dismiss()
                 if (response.isSuccessful){
                     // Save Session
                     SessionUtils.saveUser(applicationContext, response.body()?.data!!)
@@ -76,6 +78,7 @@ class LoginActivity : AppCompatActivity() {
             }
 
             override fun onFailure(call: Call<ApiResponse<UserLoginResponse>>, t: Throwable) {
+                spinner.dismiss()
                 Utils.showToast(applicationContext, t.message.toString())
             }
         })
