@@ -20,8 +20,8 @@
             app:layout_constraintBottom_toTopOf="@id/input_container"
             >
             <ImageView
-                android:layout_width="128dp"
-                android:layout_height="128dp"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
                 android:src="@drawable/logo_clear"
                 android:scaleType="fitCenter"/>
             <TextView
@@ -100,12 +100,13 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     app:boxBackgroundColor="@color/inputBg"
-                    app:boxStrokeWidth="0dp">
+                    app:boxStrokeWidth="0dp"
+                    app:endIconMode="password_toggle">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:inputType="text"
+                        android:inputType="textPassword"
                         />
                 </com.google.android.material.textfield.TextInputLayout>
             </LinearLayout>

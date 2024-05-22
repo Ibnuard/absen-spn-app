@@ -26,71 +26,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:layout_behavior="@string/appbar_scrolling_view_behavior">
-            <com.google.android.material.card.MaterialCardView
-                style="@style/Widget.Material3.CardView.Outlined"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:strokeWidth="1dp"
-                app:strokeColor="@color/black">
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:padding="24dp">
-                    <LinearLayout
-                        android:id="@+id/card_info"
-                        android:layout_toLeftOf="@id/divider"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical">
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:fontFamily="@font/poppins_regular"
-                            android:textSize="14sp"
-                            android:textColor="@color/black"
-                            android:textStyle="bold"
-                            android:text="Kelas Java"/>
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:fontFamily="@font/poppins_regular"
-                            android:textSize="12sp"
-                            android:textColor="@color/desc_label"
-                            android:text="Gedung Sarinah A, 204"/>
-                    </LinearLayout>
-                    <FrameLayout
-                        android:id="@+id/divider"
-                        android:layout_toLeftOf="@id/card_info_right"
-                        android:layout_width="1dp"
-                        android:layout_height="32dp"
-                        android:layout_marginRight="20dp"
-                        android:layout_centerVertical="true"
-                        android:background="@color/desc_label"/>
-                    <LinearLayout
-                        android:layout_alignParentEnd="true"
-                        android:id="@+id/card_info_right"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical">
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:fontFamily="@font/poppins_regular"
-                            android:textSize="14sp"
-                            android:textColor="@color/black"
-                            android:textStyle="bold"
-                            android:text="Senin"/>
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:fontFamily="@font/poppins_regular"
-                            android:textSize="12sp"
-                            android:textColor="@color/desc_label"
-                            android:text="08.00-10.00"/>
-                    </LinearLayout>
-                </RelativeLayout>
-            </com.google.android.material.card.MaterialCardView>
+
         </androidx.core.widget.NestedScrollView>
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </FrameLayout>
