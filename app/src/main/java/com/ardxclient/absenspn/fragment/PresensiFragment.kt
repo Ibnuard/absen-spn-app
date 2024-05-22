@@ -3,6 +3,7 @@ package com.ardxclient.absenspn.fragment
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -14,6 +15,7 @@ import com.ardxclient.absenspn.adapter.MapelAdapter
 import com.ardxclient.absenspn.databinding.FragmentPresensiBinding
 import com.ardxclient.absenspn.model.Mapel
 import com.ardxclient.absenspn.utils.DateTimeUtils
+import com.ardxclient.absenspn.utils.SessionUtils
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Locale
@@ -27,11 +29,19 @@ class PresensiFragment : Fragment(R.layout.fragment_presensi) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentPresensiBinding.bind(view)
 
+        // Load User Session
+        val userSession = SessionUtils.getUser(requireContext())
+        Log.d("USER SESSION", userSession.toString())
+
         // ===  Handle kelas and mapel
         handleKelasList()
         handleMapelList()
 
         with(binding){
+            // Load User Data
+            tvName.text = userSession?.nama
+            tvNIM.text = userSession?.nim.toString()
+
             // === Handling Jam View
             runnable = object : Runnable {
                 override fun run() {
@@ -70,8 +80,6 @@ class PresensiFragment : Fragment(R.layout.fragment_presensi) {
 
     private fun handleMapelList(){
         // === Handle Mapel List
-        // val mapelList = resources.getStringArray(R.array.mapel_list)
-        // val mapelAdapter = ArrayAdapter(requireContext(), R.layout.kelas_item, mapelList)
         val mapelList = listOf(
             Mapel("Math", 0),
             Mapel("English", 1)

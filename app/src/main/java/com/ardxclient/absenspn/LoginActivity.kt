@@ -14,6 +14,7 @@ import com.ardxclient.absenspn.model.response.UserLoginResponse
 import com.ardxclient.absenspn.service.ApiClient
 import com.ardxclient.absenspn.utils.InputUtils
 import com.ardxclient.absenspn.utils.LoadingModal
+import com.ardxclient.absenspn.utils.SessionUtils
 import com.ardxclient.absenspn.utils.Utils
 import retrofit2.Call
 import retrofit2.Callback
@@ -62,6 +63,10 @@ class LoginActivity : AppCompatActivity() {
                 response: Response<ApiResponse<UserLoginResponse>>
             ) {
                 if (response.isSuccessful){
+                    // Save Session
+                    SessionUtils.saveUser(applicationContext, response.body()?.data!!)
+
+                    // Navigate
                     val intent = Intent(applicationContext, MainActivity::class.java)
                     startActivity(intent)
                     finish()

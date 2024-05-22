@@ -29,6 +29,7 @@
                 android:layout_centerVertical="true"
                 android:orientation="vertical">
                 <TextView
+                    android:id="@+id/tvName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/poppins_medium"
@@ -36,6 +37,7 @@
                     android:textColor="@color/white"
                     android:text="Nama Saya Elon"/>
                 <TextView
+                    android:id="@+id/tvNIM"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/poppins_regular"
