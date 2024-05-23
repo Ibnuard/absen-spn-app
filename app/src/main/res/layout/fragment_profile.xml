@@ -40,12 +40,31 @@
                         android:padding="24dp"
                         android:gravity="center"
                         android:orientation="vertical">
-                        <com.google.android.material.imageview.ShapeableImageView
-                            android:id="@+id/profile_pic"
-                            android:layout_width="54dp"
-                            android:layout_height="54dp"
-                            app:shapeAppearanceOverlay="@style/roundedImageViewRounded"
-                            app:srcCompat="@drawable/elon"/>
+                        <RelativeLayout
+                            android:id="@+id/profile_pic_container"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content">
+                            <com.google.android.material.imageview.ShapeableImageView
+                                android:id="@+id/profile_pic"
+                                android:layout_width="54dp"
+                                android:layout_height="54dp"
+                                android:layout_centerInParent="true"
+                                android:background="@color/desc_label"
+                                app:shapeAppearanceOverlay="@style/roundedImageViewRounded"/>
+                            <FrameLayout
+                                android:layout_width="24dp"
+                                android:layout_height="24dp"
+                                android:background="@drawable/circle_shape"
+                                android:layout_toRightOf="@id/profile_pic"
+                                android:layout_marginRight="10dp"
+                                android:layout_alignParentBottom="true">
+                                <ImageView
+                                    android:layout_gravity="center"
+                                    android:layout_width="14dp"
+                                    android:layout_height="14dp"
+                                    android:src="@drawable/ic_edit"/>
+                            </FrameLayout>
+                        </RelativeLayout>
                         <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"

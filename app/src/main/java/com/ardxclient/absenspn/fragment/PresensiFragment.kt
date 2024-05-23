@@ -7,6 +7,7 @@ import android.os.Looper
 import androidx.fragment.app.Fragment
 import android.view.View
 import android.widget.ArrayAdapter
+import coil.load
 import com.ardxclient.absenspn.LoginActivity
 import com.ardxclient.absenspn.R
 import com.ardxclient.absenspn.adapter.MapelAdapter
@@ -69,6 +70,8 @@ class PresensiFragment : Fragment(R.layout.fragment_presensi) {
             // Load User Data
             tvName.text = userSession.nama
             tvNIM.text = userSession.nim.toString()
+
+            profilePic.load(userSession.avatar)
 
             btnClockIn.setOnClickListener {
                 if (!isLoading){
@@ -235,5 +238,8 @@ class PresensiFragment : Fragment(R.layout.fragment_presensi) {
         super.onResume()
         handleKelasList()
         handleMapelList()
+
+        userSession = SessionUtils.getUser(requireContext())!!
+        binding.profilePic.load(userSession.avatar)
     }
 }

@@ -1,6 +1,7 @@
 package com.ardxclient.absenspn.service
 
 import com.ardxclient.absenspn.model.ApiResponse
+import com.ardxclient.absenspn.model.request.UpdateProfileBody
 import com.ardxclient.absenspn.model.request.UserLoginBody
 import com.ardxclient.absenspn.model.response.AbsenResponse
 import com.ardxclient.absenspn.model.response.HistoryResponse
@@ -19,6 +20,9 @@ interface ApiService {
     // User
     @POST("/login")
     fun userLogin(@Body body: UserLoginBody) : Call<ApiResponse<UserLoginResponse>>
+
+    @POST("/update-profile/{id}")
+    fun updateAvatar(@Path("id") id:Int, @Body body:UpdateProfileBody) : Call<ApiResponse<UserLoginResponse>>
 
     // Jadwal
     @GET("/jadwal")

@@ -52,4 +52,6 @@ dependencies {
     implementation("com.squareup.retrofit2:retrofit:2.9.0")
     implementation("com.squareup.retrofit2:converter-gson:2.9.0")
     implementation("com.airbnb.android:lottie:4.2.0")
+    implementation("com.github.dhaval2404:imagepicker:2.1")
+    implementation("io.coil-kt:coil:2.1.0")
 }
