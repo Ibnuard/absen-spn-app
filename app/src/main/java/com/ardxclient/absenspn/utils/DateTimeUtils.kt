@@ -32,4 +32,28 @@ object DateTimeUtils {
             null
         }
     }
+
+    fun formatFullDate(input: String): String? {
+        return try {
+            // Locale for Indonesia
+            val localeID = Locale("in", "ID")
+
+            // Input format
+            val inputFormat = SimpleDateFormat("dd-MM-yyyy", localeID)
+            // Output format
+            val outputFormat = SimpleDateFormat("EEEE, dd MMMM yyyy", localeID)
+
+            // Parse the input date
+            val date = inputFormat.parse(input)
+            if (date != null) {
+                // Format the date to the desired output
+                outputFormat.format(date)
+            } else {
+                null
+            }
+        } catch (e: Exception) {
+            e.printStackTrace()
+            null
+        }
+    }
 }

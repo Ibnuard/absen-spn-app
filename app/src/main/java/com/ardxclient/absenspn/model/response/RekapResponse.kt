@@ -1,6 +1,7 @@
 package com.ardxclient.absenspn.model.response
 
 import com.google.gson.annotations.SerializedName
+import java.io.Serializable
 
 data class RekapResponse(
     @SerializedName("id") var id: Int,
@@ -12,4 +13,4 @@ data class RekapResponse(
     @SerializedName("max_kehadiran") var maxKehadiran : Int,
     @SerializedName("createdAt") var createdAt: String,
     @SerializedName("updatedAt") var updatedAt: String
-)
+) : Serializable

@@ -7,6 +7,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.ardxclient.absenspn.R
 import com.ardxclient.absenspn.model.response.JadwalResponse
+import com.ardxclient.absenspn.utils.DateTimeUtils
 
 class JadwalAdapter(
     private val listItems: ArrayList<JadwalResponse>,
@@ -30,10 +31,11 @@ class JadwalAdapter(
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = listItems[position]
         val jam = "${item.jamIn} - ${item.jamOut}"
+        val tanggal = DateTimeUtils.formatFullDate(item.tanggal)
 
         holder.tvMapel.text = item.title
         holder.tvLokasi.text = item.lokasi
-        holder.tvTanggal.text = item.tanggal
+        holder.tvTanggal.text = tanggal
         holder.tvWaktu.text = jam
     }
 }

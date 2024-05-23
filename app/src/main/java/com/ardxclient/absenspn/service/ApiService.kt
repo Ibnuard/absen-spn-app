@@ -3,6 +3,7 @@ package com.ardxclient.absenspn.service
 import com.ardxclient.absenspn.model.ApiResponse
 import com.ardxclient.absenspn.model.request.UserLoginBody
 import com.ardxclient.absenspn.model.response.AbsenResponse
+import com.ardxclient.absenspn.model.response.HistoryResponse
 import com.ardxclient.absenspn.model.response.JadwalResponse
 import com.ardxclient.absenspn.model.response.MapelResponse
 import com.ardxclient.absenspn.model.response.RekapResponse
@@ -39,6 +40,13 @@ interface ApiService {
         @Query("kelas") kelas: String,
         @Query("mapel") mapel: Int
     ): Call<ApiResponse<AbsenResponse>>
+
+    @GET("/history/{id}")
+    fun getHistory(
+        @Path("id") id: Int,
+        @Query("mapelId") mapelId: Int,
+        @Query("periode") periode: String
+    ): Call<ApiResponse<ArrayList<HistoryResponse>>>
 
     // Rekap
     @GET("/rekap/{id}")

@@ -1,13 +1,12 @@
 package com.ardxclient.absenspn.fragment
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.ardxclient.absenspn.HistoryActivity
 import com.ardxclient.absenspn.R
-import com.ardxclient.absenspn.adapter.JadwalAdapter
 import com.ardxclient.absenspn.adapter.RekapAdapter
 import com.ardxclient.absenspn.databinding.FragmentRekapBinding
 import com.ardxclient.absenspn.model.ApiResponse
@@ -76,8 +75,10 @@ class RekapFragment : Fragment(R.layout.fragment_rekap) {
         if (data?.size!! > 0){
             binding.rvRekap.visibility = View.VISIBLE
             binding.rvRekap.adapter = RekapAdapter(data, object : RekapAdapter.onRekapListener{
-                override fun onRekapClicked() {
-
+                override fun onRekapClicked(item: RekapResponse) {
+                    val intent = Intent(requireContext(), HistoryActivity::class.java)
+                    intent.putExtra("REKAP_DATA", item)
+                    startActivity(intent)
                 }
             })
         }else{

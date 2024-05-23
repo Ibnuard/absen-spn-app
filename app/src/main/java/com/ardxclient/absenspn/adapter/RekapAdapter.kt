@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.ardxclient.absenspn.R
 import com.ardxclient.absenspn.model.response.RekapResponse
 import com.ardxclient.absenspn.utils.DateTimeUtils
+import com.google.android.material.card.MaterialCardView
 
 class RekapAdapter(private val listItems: ArrayList<RekapResponse>, private val listener: onRekapListener) : RecyclerView.Adapter<RekapAdapter.ViewHolder>() {
     class ViewHolder(itemView: View):RecyclerView.ViewHolder(itemView) {
@@ -15,10 +16,11 @@ class RekapAdapter(private val listItems: ArrayList<RekapResponse>, private val 
         val tvPeriode: TextView = itemView.findViewById(R.id.tvPeriode)
         val tvKehadiran: TextView = itemView.findViewById(R.id.tvKehadiran)
         val tvMaxKehadiran: TextView = itemView.findViewById(R.id.tvMaxKehadiran)
+        val container:MaterialCardView = itemView.findViewById(R.id.container)
     }
 
     interface onRekapListener {
-        fun onRekapClicked()
+        fun onRekapClicked(item: RekapResponse)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -35,6 +37,9 @@ class RekapAdapter(private val listItems: ArrayList<RekapResponse>, private val 
         holder.tvPeriode.text = periode
         holder.tvKehadiran.text = item.kehadiran.toString()
         holder.tvMaxKehadiran.text = maxKehadiran
+        holder.container.setOnClickListener {
+            listener.onRekapClicked(item)
+        }
     }
 
     override fun getItemCount(): Int {

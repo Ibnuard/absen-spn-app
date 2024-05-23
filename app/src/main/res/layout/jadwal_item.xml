@@ -19,6 +19,7 @@
                 android:layout_toLeftOf="@id/divider"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
                 android:orientation="vertical">
                 <TextView
                     android:id="@+id/tvMapel"
@@ -51,13 +52,15 @@
                 android:id="@+id/card_info_right"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:gravity="right"
                 android:orientation="vertical">
                 <TextView
                     android:id="@+id/tvTanggal"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/poppins_regular"
-                    android:textSize="14sp"
+                    android:textSize="12sp"
                     android:textColor="@color/black"
                     android:textStyle="bold"
                     android:text="Senin"/>
