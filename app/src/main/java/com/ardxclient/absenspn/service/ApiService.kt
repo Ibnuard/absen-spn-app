@@ -54,5 +54,5 @@ interface ApiService {
 
     // Rekap
     @GET("/rekap/{id}")
-    fun getRekap(@Path("id") id: Int) : Call<ApiResponse<ArrayList<RekapResponse>>>
+    fun getRekap(@Path("id") id: Int, @Query("search") search: String?) : Call<ApiResponse<ArrayList<RekapResponse>>>
 }

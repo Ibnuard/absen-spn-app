@@ -48,6 +48,7 @@ class JadwalFragment : Fragment(R.layout.fragment_jadwal) {
                 if (response.isSuccessful){
                     setupRecyclerView(response.body()?.data)
                 }else{
+                    binding.rvJadwal.visibility = View.GONE
                     binding.tvNoData.visibility = View.VISIBLE
                     Utils.showToast(requireContext(), response.message())
                 }
@@ -57,6 +58,7 @@ class JadwalFragment : Fragment(R.layout.fragment_jadwal) {
                 call: Call<ApiResponse<ArrayList<JadwalResponse>>>,
                 t: Throwable
             ) {
+                binding.rvJadwal.visibility = View.GONE
                 binding.spinner.visibility = View.GONE
                 binding.tvNoData.visibility = View.VISIBLE
                 Utils.showToast(requireContext(), t.message.toString())
@@ -67,8 +69,10 @@ class JadwalFragment : Fragment(R.layout.fragment_jadwal) {
     private fun setupRecyclerView(data: ArrayList<JadwalResponse>?) {
         if (data?.size!! > 0){
             binding.rvJadwal.visibility = View.VISIBLE
+            binding.tvNoData.visibility = View.GONE
             binding.rvJadwal.adapter = JadwalAdapter(data)
         }else{
+            binding.rvJadwal.visibility = View.GONE
             binding.tvNoData.visibility = View.VISIBLE
         }
     }

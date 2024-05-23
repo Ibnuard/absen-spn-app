@@ -2,8 +2,8 @@ package com.ardxclient.absenspn.fragment
 
 import android.content.Intent
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.View
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.ardxclient.absenspn.HistoryActivity
 import com.ardxclient.absenspn.R
@@ -38,13 +38,52 @@ class RekapFragment : Fragment(R.layout.fragment_rekap) {
             //loading
             spinner.visibility = View.VISIBLE
             tvNoData.visibility = View.GONE
+
+
+            // Search Bar
+
+            searchView
+                .editText
+                .setOnEditorActionListener { _, _, _ ->
+                    searchBar.setText(searchView.text)
+                    handleOnSearch()
+                    searchView.hide()
+                    false
+                }
+
+            searchBar.setOnMenuItemClickListener { menuItem ->
+                when (menuItem.itemId) {
+                    R.id.menu_clear -> {
+                        searchBar.setText("")
+                        handleOnSearch()
+                        true  // Returning true to indicate the click was handled
+                    }
+                    else -> false  // Return false for other items
+                }
+            }
         }
 
-        getAllRekap()
+
+
+        // Get All Rekap
+        getAllRekap("")
     }
 
-    private fun getAllRekap() {
-        val call = ApiClient.apiService.getRekap(userSession.id)
+    private fun handleOnSearch() {
+        val keyword = binding.searchBar.text.toString()
+
+        getAllRekap(keyword)
+
+        if (keyword.isNotEmpty()){
+            binding.searchBar.inflateMenu(R.menu.search_menu)
+        }else{
+            binding.searchBar.menu.clear()
+        }
+
+    }
+
+    private fun getAllRekap(keyword: String) {
+        val call = ApiClient.apiService.getRekap(userSession.id, keyword)
 
         call.enqueue(object: Callback<ApiResponse<ArrayList<RekapResponse>>>{
             override fun onResponse(
@@ -55,6 +94,7 @@ class RekapFragment : Fragment(R.layout.fragment_rekap) {
                 if (response.isSuccessful){
                     setupRecyclerView(response.body()?.data)
                 }else{
+                    binding.rvRekap.visibility = View.GONE
                     binding.tvNoData.visibility = View.VISIBLE
                     Utils.showToast(requireContext(), response.message())
                 }
@@ -64,6 +104,7 @@ class RekapFragment : Fragment(R.layout.fragment_rekap) {
                 call: Call<ApiResponse<ArrayList<RekapResponse>>>,
                 t: Throwable
             ) {
+                binding.rvRekap.visibility = View.GONE
                 binding.spinner.visibility = View.GONE
                 binding.tvNoData.visibility = View.VISIBLE
                 Utils.showToast(requireContext(), t.message.toString())
@@ -73,6 +114,7 @@ class RekapFragment : Fragment(R.layout.fragment_rekap) {
 
     private fun setupRecyclerView(data: ArrayList<RekapResponse>?) {
         if (data?.size!! > 0){
+            binding.tvNoData.visibility = View.GONE
             binding.rvRekap.visibility = View.VISIBLE
             binding.rvRekap.adapter = RekapAdapter(data, object : RekapAdapter.onRekapListener{
                 override fun onRekapClicked(item: RekapResponse) {
@@ -82,6 +124,7 @@ class RekapFragment : Fragment(R.layout.fragment_rekap) {
                 }
             })
         }else{
+            binding.rvRekap.visibility = View.GONE
             binding.tvNoData.visibility = View.VISIBLE
         }
     }

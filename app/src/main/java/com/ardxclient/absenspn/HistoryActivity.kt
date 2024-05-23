@@ -64,6 +64,7 @@ class HistoryActivity : AppCompatActivity() {
                 if (response.isSuccessful){
                     setupRecyclerView(response.body()?.data)
                 }else{
+                    binding.rvAbsen.visibility = View.GONE
                     binding.tvNoData.visibility = View.VISIBLE
                     Utils.showToast(applicationContext, response.message())
                 }
@@ -73,6 +74,7 @@ class HistoryActivity : AppCompatActivity() {
                 call: Call<ApiResponse<ArrayList<HistoryResponse>>>,
                 t: Throwable
             ) {
+                binding.rvAbsen.visibility = View.GONE
                 binding.spinner.visibility = View.GONE
                 binding.tvNoData.visibility = View.VISIBLE
                 Utils.showToast(applicationContext, t.message.toString())
@@ -82,9 +84,11 @@ class HistoryActivity : AppCompatActivity() {
 
     private fun setupRecyclerView(data: ArrayList<HistoryResponse>?) {
         if (data?.size!! > 0){
+            binding.tvNoData.visibility = View.GONE
             binding.rvAbsen.visibility = View.VISIBLE
             binding.rvAbsen.adapter = HistoryAdapter(data)
         }else{
+            binding.rvAbsen.visibility = View.GONE
             binding.tvNoData.visibility = View.VISIBLE
         }
     }
