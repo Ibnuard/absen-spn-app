@@ -14,7 +14,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:padding="24dp">
+            android:padding="14dp">
             <LinearLayout
                 android:id="@+id/card_info"
                 android:layout_toLeftOf="@id/divider"
@@ -23,6 +23,7 @@
                 android:layout_centerVertical="true"
                 android:orientation="vertical">
                 <TextView
+                    android:id="@+id/tvMapel"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/poppins_regular"
@@ -31,6 +32,7 @@
                     android:textStyle="bold"
                     android:text="Mapel Java"/>
                 <TextView
+                    android:id="@+id/tvPeriode"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/poppins_regular"
@@ -38,12 +40,13 @@
                     android:textColor="@color/desc_label"
                     android:text="Mei 2024"/>
                 <TextView
+                    android:layout_marginTop="8dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/poppins_regular"
                     android:textSize="12sp"
                     android:textColor="@color/desc_label"
-                    android:text="Gedung Sarinah A, 204"/>
+                    android:text="Takan untuk melihat riwayat absensi"/>
             </LinearLayout>
             <FrameLayout
                 android:id="@+id/divider"
@@ -73,6 +76,7 @@
                     android:gravity="center"
                     android:orientation="horizontal">
                     <TextView
+                        android:id="@+id/tvKehadiran"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/poppins_regular"
@@ -81,6 +85,7 @@
                         android:textStyle="bold"
                         android:text="10"/>
                     <TextView
+                        android:id="@+id/tvMaxKehadiran"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/poppins_regular"

@@ -5,6 +5,7 @@ import com.ardxclient.absenspn.model.request.UserLoginBody
 import com.ardxclient.absenspn.model.response.AbsenResponse
 import com.ardxclient.absenspn.model.response.JadwalResponse
 import com.ardxclient.absenspn.model.response.MapelResponse
+import com.ardxclient.absenspn.model.response.RekapResponse
 import com.ardxclient.absenspn.model.response.UserLoginResponse
 import retrofit2.Call
 import retrofit2.http.Body
@@ -38,4 +39,8 @@ interface ApiService {
         @Query("kelas") kelas: String,
         @Query("mapel") mapel: Int
     ): Call<ApiResponse<AbsenResponse>>
+
+    // Rekap
+    @GET("/rekap/{id}")
+    fun getRekap(@Path("id") id: Int) : Call<ApiResponse<ArrayList<RekapResponse>>>
 }
