@@ -8,8 +8,9 @@ import android.widget.ArrayAdapter
 import android.widget.TextView
 import com.ardxclient.absenspn.R
 import com.ardxclient.absenspn.model.Mapel
+import com.ardxclient.absenspn.model.response.MapelResponse
 
-class MapelAdapter(context: Context, mapelList: List<Mapel>) : ArrayAdapter<Mapel>(context, 0, mapelList) {
+class MapelAdapter(context: Context, mapelList: ArrayList<MapelResponse>) : ArrayAdapter<MapelResponse>(context, 0, mapelList) {
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
         val currentItem = getItem(position)

@@ -25,6 +25,9 @@
     <string name="nomor_label">Nomor Handphone</string>
     <string name="data_pribadi_title">Data Pribadi</string>
     <string name="rekap_title">Rekap</string>
+    <string name="no_data">Belum ada data.</string>
+    <string name="absen_in_done">Berhasil Clock In</string>
+    <string name="ok_label">Ok</string>
     <string-array name="kelas_list">
         <item>Kelas Java</item>
         <item>Kelas Kotlin</item>
