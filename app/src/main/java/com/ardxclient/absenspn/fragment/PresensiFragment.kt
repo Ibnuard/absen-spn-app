@@ -1,11 +1,13 @@
 package com.ardxclient.absenspn.fragment
 
+import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import androidx.fragment.app.Fragment
 import android.view.View
 import android.widget.ArrayAdapter
+import com.ardxclient.absenspn.LoginActivity
 import com.ardxclient.absenspn.R
 import com.ardxclient.absenspn.adapter.MapelAdapter
 import com.ardxclient.absenspn.databinding.FragmentPresensiBinding
@@ -90,6 +92,10 @@ class PresensiFragment : Fragment(R.layout.fragment_presensi) {
             }
 
             ivLogout.setOnClickListener {
+                SessionUtils.removeUser(requireContext())
+                val intent = Intent(requireContext(), LoginActivity::class.java)
+                startActivity(intent)
+                requireActivity().finish()
             }
         }
     }
