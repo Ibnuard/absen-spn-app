@@ -1,6 +1,7 @@
 package com.ardxclient.absenspn.fragment
 
 import android.app.Activity
+import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -8,6 +9,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.result.ActivityResult
+import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import coil.load
 import com.ardxclient.absenspn.R
@@ -29,21 +31,8 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
     private lateinit var spinner: LoadingModal
     private lateinit var userSession: UserLoginResponse
 
-    private val startForProfileImageResult =
-        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result: ActivityResult ->
-            val resultCode = result.resultCode
-            val data = result.data
+    private lateinit var startForProfileImageResult: ActivityResultLauncher<Intent>
 
-            if (resultCode == Activity.RESULT_OK) {
-                //Image Uri will not be null for RESULT_OK
-                val fileUri = data?.data!!
-                onImageUpload(fileUri)
-            } else if (resultCode == ImagePicker.RESULT_ERROR) {
-                Utils.showToast(requireContext(), ImagePicker.getError(data))
-            } else {
-                // do nothing
-            }
-        }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -58,6 +47,23 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
 
         // loading modal
         spinner = LoadingModal()
+
+        // Register ActivityResultLauncher
+        startForProfileImageResult =
+            registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result: ActivityResult ->
+                val resultCode = result.resultCode
+                val data = result.data
+
+                if (resultCode == Activity.RESULT_OK) {
+                    //Image Uri will not be null for RESULT_OK
+                    val fileUri = data?.data!!
+                    onImageUpload(fileUri)
+                } else if (resultCode == ImagePicker.RESULT_ERROR) {
+                    Utils.showToast(requireContext(), ImagePicker.getError(data))
+                } else {
+                    // do nothing
+                }
+            }
 
         // on profile pic edit
         binding.profilePicContainer.setOnClickListener {
