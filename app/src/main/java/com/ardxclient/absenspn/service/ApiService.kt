@@ -4,6 +4,7 @@ import com.ardxclient.absenspn.model.ApiResponse
 import com.ardxclient.absenspn.model.request.JadwalBody
 import com.ardxclient.absenspn.model.request.MapelBody
 import com.ardxclient.absenspn.model.request.UpdateProfileBody
+import com.ardxclient.absenspn.model.request.UserEditBody
 import com.ardxclient.absenspn.model.request.UserLoginBody
 import com.ardxclient.absenspn.model.request.UserRegisterBody
 import com.ardxclient.absenspn.model.response.AbsenResponse
@@ -34,6 +35,8 @@ interface ApiService {
 
     @POST("/update-profile/{id}")
     fun updateAvatar(@Path("id") id:Int, @Body body:UpdateProfileBody) : Call<ApiResponse<UserLoginResponse>>
+    @POST("/user/{id}")
+    fun editUser(@Path("id") id: Int, @Body body: UserEditBody) : Call<ApiResponse<Any>>
 
     // Jadwal
     @GET("/jadwal")
@@ -42,6 +45,8 @@ interface ApiService {
     fun createJadwal(@Body body: JadwalBody) : Call<ApiResponse<Any>>
     @DELETE("/jadwal/{id}")
     fun deleteJadwal(@Path("id") id:Int) : Call<ApiResponse<Any>>
+    @POST("/jadwal/{id}")
+    fun editJadwal(@Path("id") id:Int, @Body body: JadwalBody) : Call<ApiResponse<Any>>
 
     // Kelas
     @GET("/kelas")
@@ -50,6 +55,8 @@ interface ApiService {
     fun addKelas(@Query("kelas") kelas:String): Call<ApiResponse<Any>>
     @DELETE("/kelas/{id}")
     fun deleteKelas(@Path("id") id: Int):Call<ApiResponse<Any>>
+    @POST("/kelas/{id}")
+    fun editKelas(@Path("id") id : Int, @Query("kelas") kelas:String): Call<ApiResponse<Any>>
 
     // Mapel
     @GET("/mapel")
@@ -58,6 +65,8 @@ interface ApiService {
     fun addMapel(@Body body:MapelBody): Call<ApiResponse<Any>>
     @DELETE("/mapel/{id}")
     fun deleteMapel(@Path("id") id: Int)  :Call<ApiResponse<Any>>
+    @POST("/mapel/{id}")
+    fun editMapel(@Path("id") id:Int, @Body body:MapelBody): Call<ApiResponse<Any>>
 
     // Absen
     @POST("absen/{id}")

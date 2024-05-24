@@ -5,12 +5,10 @@ import android.os.Bundle
 import android.view.MotionEvent
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import com.ardxclient.absenspn.databinding.ActivityUserInputBinding
 import com.ardxclient.absenspn.model.ApiResponse
+import com.ardxclient.absenspn.model.request.UserEditBody
 import com.ardxclient.absenspn.model.request.UserRegisterBody
 import com.ardxclient.absenspn.model.response.UserLoginResponse
 import com.ardxclient.absenspn.service.ApiClient
@@ -48,10 +46,51 @@ class UserInputActivity : AppCompatActivity() {
 
             btnSave.setOnClickListener {
                 if (userData != null){
-
+                    onEditUser(userData.id)
                 }else{
                     onAddUser()
                 }
+            }
+        }
+    }
+
+    private fun onEditUser(id: Int) {
+        with(binding){
+            val isValidInput = InputUtils.isAllFieldComplete(tvName, tvNIM, tvKelas, tvTahunMasuk, tvWaliKelas, tvTglLahir, tvTempatLahir, tvNoHP)
+            if (isValidInput){
+                spinner.show(supportFragmentManager, LoadingModal.TAG)
+                val name = tvName.editText?.text.toString()
+                val nim = tvNIM.editText?.text.toString().toInt()
+                val kelas = tvKelas.editText?.text.toString()
+                val tahunMasuk = tvTahunMasuk.editText?.text.toString().toInt()
+                val waliKelas = tvWaliKelas.editText?.text.toString()
+                val tglLahir = tvTglLahir.editText?.text.toString()
+                val tempatLahir = tvTempatLahir.editText?.text.toString()
+                val noHP = tvNoHP.editText?.text.toString()
+
+                val body = UserEditBody(name, nim, kelas, tahunMasuk, waliKelas, tglLahir, tempatLahir, noHP)
+
+                val call = ApiClient.apiService.editUser(id, body)
+
+                call.enqueue(object: Callback<ApiResponse<Any>>{
+                    override fun onResponse(
+                        call: Call<ApiResponse<Any>>,
+                        response: Response<ApiResponse<Any>>
+                    ) {
+                        spinner.dismiss()
+                        if (response.isSuccessful){
+                            Utils.showToast(applicationContext, "Berhasil mengupdate user.")
+                            finish()
+                        }else{
+                            Utils.showToast(applicationContext, response.message())
+                        }
+                    }
+
+                    override fun onFailure(call: Call<ApiResponse<Any>>, t: Throwable) {
+                        spinner.dismiss()
+                        Utils.showToast(applicationContext, t.message.toString())
+                    }
+                })
             }
         }
     }

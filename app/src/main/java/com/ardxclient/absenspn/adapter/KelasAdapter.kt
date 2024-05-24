@@ -18,7 +18,7 @@ class KelasAdapter(private val listItems: ArrayList<KelasResponse>, private val 
     }
 
     interface onKelasListener {
-        fun onKelasClicked()
+        fun onKelasClicked(item: KelasResponse)
         fun onDeleteKelas(id: Int)
     }
 
@@ -35,7 +35,7 @@ class KelasAdapter(private val listItems: ArrayList<KelasResponse>, private val 
         val item = listItems[position]
         holder.tvTitle.text = item.kelas
         holder.container.setOnClickListener {
-            listener.onKelasClicked()
+            listener.onKelasClicked(item)
         }
         holder.delete.setOnClickListener {
             listener.onDeleteKelas(item.id)

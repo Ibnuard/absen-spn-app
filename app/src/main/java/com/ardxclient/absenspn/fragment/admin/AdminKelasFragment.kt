@@ -82,7 +82,10 @@ class AdminKelasFragment : Fragment(R.layout.fragment_admin_kelas) {
             binding.rvKelas.visibility = View.VISIBLE
             binding.tvNoData.visibility = View.GONE
             binding.rvKelas.adapter = KelasAdapter(data, object : KelasAdapter.onKelasListener{
-                override fun onKelasClicked() {
+                override fun onKelasClicked(item: KelasResponse) {
+                    val intent = Intent(requireContext(), KelasInputActivity::class.java)
+                    intent.putExtra("KELAS_DATA", item)
+                    startActivity(intent)
                 }
 
                 override fun onDeleteKelas(id: Int) {

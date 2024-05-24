@@ -41,10 +41,46 @@ class MapelInputActivity : AppCompatActivity() {
 
             btnSave.setOnClickListener {
                 if (mapelData!= null){
-
+                    onEditMapel(mapelData.id)
                 }else{
                     onAddMapel()
                 }
+            }
+        }
+    }
+
+    private fun onEditMapel(id: Int) {
+        with(binding){
+            val isValidInput = InputUtils.isAllFieldComplete(tvMapel, tvMaxKehadiran)
+
+            if (isValidInput) {
+                spinner.show(supportFragmentManager, LoadingModal.TAG)
+                val mapel = tvMapel.editText?.text.toString()
+                val maxPertemuan = tvMaxKehadiran.editText?.text.toString().toInt()
+
+                val body = MapelBody(mapel, maxPertemuan)
+
+                val call = ApiClient.apiService.editMapel(id, body)
+
+                call.enqueue(object: Callback<ApiResponse<Any>>{
+                    override fun onResponse(
+                        call: Call<ApiResponse<Any>>,
+                        response: Response<ApiResponse<Any>>
+                    ) {
+                        spinner.dismiss()
+                        if (response.isSuccessful){
+                            Utils.showToast(applicationContext, "Berhasil mengubah mapel.")
+                            finish()
+                        }else{
+                            Utils.showToast(applicationContext, response.message())
+                        }
+                    }
+
+                    override fun onFailure(call: Call<ApiResponse<Any>>, t: Throwable) {
+                        spinner.dismiss()
+                        Utils.showToast(applicationContext, t.message.toString())
+                    }
+                })
             }
         }
     }

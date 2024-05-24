@@ -54,7 +54,7 @@ class JadwalInputActivity : AppCompatActivity() {
 
             btnSave.setOnClickListener {
                 if (jadwalData != null){
-
+                    onEditData(jadwalData.id)
                 }else{
                     onAddData()
                 }
@@ -64,6 +64,45 @@ class JadwalInputActivity : AppCompatActivity() {
                 DialogUtils.showDeleteDialog(this@JadwalInputActivity, object : DialogUtils.OnDeleteConfirmListener{
                     override fun onDeleteConfirmed() {
                         onDeleteData(jadwalData?.id)
+                    }
+                })
+            }
+        }
+    }
+
+    private fun onEditData(id: Int) {
+        with(binding){
+            val isValidInput = InputUtils.isAllFieldComplete(tvMapel, tvTglJadwal, tvLokasi, tvJamMasuk, tvJamKeluar)
+
+            if (isValidInput) {
+                spinner.show(supportFragmentManager, LoadingModal.TAG)
+                val mapel = tvMapel.editText?.text.toString()
+                val lokasi = tvLokasi.editText?.text.toString()
+                val tanggal = tvTglJadwal.editText?.text.toString()
+                val jamIn = tvJamMasuk.editText?.text.toString()
+                val jamOut = tvJamKeluar.editText?.text.toString()
+
+                val body = JadwalBody(mapel, tanggal, lokasi, jamIn, jamOut)
+
+                val call = ApiClient.apiService.editJadwal(id, body)
+
+                call.enqueue(object: Callback<ApiResponse<Any>>{
+                    override fun onResponse(
+                        call: Call<ApiResponse<Any>>,
+                        response: Response<ApiResponse<Any>>
+                    ) {
+                        spinner.dismiss()
+                        if (response.isSuccessful){
+                            Utils.showToast(applicationContext, "Berhasil mengubah jadwal.")
+                            finish()
+                        }else{
+                            Utils.showToast(applicationContext, response.message())
+                        }
+                    }
+
+                    override fun onFailure(call: Call<ApiResponse<Any>>, t: Throwable) {
+                        spinner.dismiss()
+                        Utils.showToast(applicationContext, t.message.toString())
                     }
                 })
             }
