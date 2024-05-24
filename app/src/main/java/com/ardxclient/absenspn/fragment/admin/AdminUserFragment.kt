@@ -1,10 +1,12 @@
 package com.ardxclient.absenspn.fragment.admin
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.ardxclient.absenspn.R
+import com.ardxclient.absenspn.UserInputActivity
 import com.ardxclient.absenspn.adapter.UserAdapter
 import com.ardxclient.absenspn.databinding.FragmentAdminUserBinding
 import com.ardxclient.absenspn.model.ApiResponse
@@ -29,6 +31,11 @@ class AdminUserFragment : Fragment(R.layout.fragment_admin_user) {
             //loading
             spinner.visibility = View.VISIBLE
             tvNoData.visibility = View.GONE
+
+            fab.setOnClickListener {
+                val intent = Intent(requireContext(), UserInputActivity::class.java)
+                startActivity(intent)
+            }
         }
 
         getAllUser()
@@ -69,13 +76,20 @@ class AdminUserFragment : Fragment(R.layout.fragment_admin_user) {
             binding.rvUser.visibility = View.VISIBLE
             binding.tvNoData.visibility = View.GONE
             binding.rvUser.adapter = UserAdapter(data, object : UserAdapter.onUserListener{
-                override fun onItemClicked() {
-
+                override fun onItemClicked(item: UserLoginResponse) {
+                    val intent = Intent(requireContext(), UserInputActivity::class.java)
+                    intent.putExtra("USER_DATA", item)
+                    startActivity(intent)
                 }
             })
         }else{
             binding.rvUser.visibility = View.GONE
             binding.tvNoData.visibility = View.VISIBLE
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        getAllUser()
     }
 }

@@ -17,7 +17,7 @@ class UserAdapter(private val listItems: ArrayList<UserLoginResponse>, private v
     }
 
     interface onUserListener {
-        fun onItemClicked()
+        fun onItemClicked(item: UserLoginResponse)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -34,7 +34,7 @@ class UserAdapter(private val listItems: ArrayList<UserLoginResponse>, private v
         holder.tvName.text = item.nama
         holder.tvNim.text = item.nim.toString()
         holder.container.setOnClickListener {
-            listener.onItemClicked()
+            listener.onItemClicked(item)
         }
     }
 }

@@ -1,6 +1,7 @@
 package com.ardxclient.absenspn.model.response
 
 import com.google.gson.annotations.SerializedName
+import java.io.Serializable
 
 data class UserLoginResponse(
     @SerializedName("id") val id : Int,
@@ -17,4 +18,4 @@ data class UserLoginResponse(
     @SerializedName("nomor_telp") val nomor_telp : Int,
     @SerializedName("createdAt") val createdAt : String,
     @SerializedName("updatedAt") val updatedAt : String
-)
+) : Serializable

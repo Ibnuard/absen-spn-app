@@ -3,6 +3,7 @@ package com.ardxclient.absenspn.service
 import com.ardxclient.absenspn.model.ApiResponse
 import com.ardxclient.absenspn.model.request.UpdateProfileBody
 import com.ardxclient.absenspn.model.request.UserLoginBody
+import com.ardxclient.absenspn.model.request.UserRegisterBody
 import com.ardxclient.absenspn.model.response.AbsenResponse
 import com.ardxclient.absenspn.model.response.HistoryResponse
 import com.ardxclient.absenspn.model.response.JadwalResponse
@@ -22,6 +23,8 @@ interface ApiService {
     fun userLogin(@Body body: UserLoginBody) : Call<ApiResponse<UserLoginResponse>>
     @GET("/users")
     fun getAllUser() : Call<ApiResponse<ArrayList<UserLoginResponse>>>
+    @POST("/register")
+    fun userRegister(@Body body: UserRegisterBody) : Call<ApiResponse<Any>>
 
     @POST("/update-profile/{id}")
     fun updateAvatar(@Path("id") id:Int, @Body body:UpdateProfileBody) : Call<ApiResponse<UserLoginResponse>>
