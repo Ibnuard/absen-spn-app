@@ -20,6 +20,8 @@ interface ApiService {
     // User
     @POST("/login")
     fun userLogin(@Body body: UserLoginBody) : Call<ApiResponse<UserLoginResponse>>
+    @GET("/users")
+    fun getAllUser() : Call<ApiResponse<ArrayList<UserLoginResponse>>>
 
     @POST("/update-profile/{id}")
     fun updateAvatar(@Path("id") id:Int, @Body body:UpdateProfileBody) : Call<ApiResponse<UserLoginResponse>>

@@ -54,6 +54,16 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun onLogin(username: String, password: String) {
+
+
+        // Handle if admin
+        if (username.lowercase() == "admin" && password.lowercase() == "admin"){
+            val intent = Intent(applicationContext, AdminActivtiy::class.java)
+            startActivity(intent)
+            finish()
+            return
+        }
+
         val body = UserLoginBody(username, password)
 
         val call = ApiClient.apiService.userLogin(body)
