@@ -5,6 +5,7 @@ import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.ardxclient.absenspn.LoginActivity
 import com.ardxclient.absenspn.R
 import com.ardxclient.absenspn.UserInputActivity
 import com.ardxclient.absenspn.adapter.UserAdapter
@@ -40,6 +41,19 @@ class AdminUserFragment : Fragment(R.layout.fragment_admin_user) {
             fab.setOnClickListener {
                 val intent = Intent(requireContext(), UserInputActivity::class.java)
                 startActivity(intent)
+            }
+
+            topAppBar.setOnMenuItemClickListener { menuItem ->
+                when(menuItem.itemId){
+                    R.id.logout -> {
+                        val intent = Intent(requireContext(), LoginActivity::class.java)
+                        startActivity(intent)
+                        activity?.finish()
+                        true
+                    }
+
+                    else -> false
+                }
             }
         }
 

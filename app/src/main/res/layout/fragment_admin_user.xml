@@ -18,6 +18,7 @@
                 android:layout_height="wrap_content"
                 android:minHeight="?attr/actionBarSize"
                 android:background="@color/primary"
+                app:menu="@menu/admin_header_menu"
                 app:titleTextColor="@color/white"
                 app:titleCentered="true"
                 app:titleTextAppearance="@style/appBarTitleStyle"
