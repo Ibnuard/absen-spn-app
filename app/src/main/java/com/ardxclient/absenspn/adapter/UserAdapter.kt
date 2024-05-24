@@ -3,6 +3,7 @@ package com.ardxclient.absenspn.adapter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.ardxclient.absenspn.R
@@ -14,10 +15,12 @@ class UserAdapter(private val listItems: ArrayList<UserLoginResponse>, private v
         val tvName : TextView = view.findViewById(R.id.tvTitle)
         val tvNim : TextView = view.findViewById(R.id.tvNIM)
         val container : MaterialCardView = view.findViewById(R.id.container)
+        val delete : ImageView = view.findViewById(R.id.btn_trash)
     }
 
     interface onUserListener {
         fun onItemClicked(item: UserLoginResponse)
+        fun onDelete(id: Int)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -35,6 +38,9 @@ class UserAdapter(private val listItems: ArrayList<UserLoginResponse>, private v
         holder.tvNim.text = item.nim.toString()
         holder.container.setOnClickListener {
             listener.onItemClicked(item)
+        }
+        holder.delete.setOnClickListener {
+            listener.onDelete(item.id)
         }
     }
 }

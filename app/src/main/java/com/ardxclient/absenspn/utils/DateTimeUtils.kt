@@ -9,6 +9,8 @@ import com.google.android.material.datepicker.CalendarConstraints
 import com.google.android.material.datepicker.DateValidatorPointForward
 import com.google.android.material.datepicker.MaterialDatePicker
 import com.google.android.material.textfield.TextInputLayout
+import com.google.android.material.timepicker.MaterialTimePicker
+import com.google.android.material.timepicker.TimeFormat
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Locale
@@ -94,6 +96,25 @@ object DateTimeUtils {
         datePicker.addOnPositiveButtonClickListener {
             val selectedDate = formatDate(it)
             input.setText(selectedDate)
+        }
+    }
+
+    fun showTimePicker(activity: FragmentActivity, input: EditText){
+        val timePicker =
+            MaterialTimePicker.Builder()
+                .setTimeFormat(TimeFormat.CLOCK_24H)
+                .setTitleText("Select Appointment time")
+                .build()
+
+        input.setOnClickListener {
+            timePicker.show(activity.supportFragmentManager, "TIMEPICKER")
+        }
+
+        timePicker.addOnPositiveButtonClickListener {
+            val pickerHour = timePicker.hour
+            val pickerMinute = timePicker.minute
+            val formatted = formatTime(pickerHour, pickerMinute)
+            input.setText(formatted)
         }
     }
 }

@@ -11,9 +11,11 @@ import coil.load
 import com.ardxclient.absenspn.LoginActivity
 import com.ardxclient.absenspn.R
 import com.ardxclient.absenspn.adapter.MapelAdapter
+import com.ardxclient.absenspn.adapter.UserKelasAdapter
 import com.ardxclient.absenspn.databinding.FragmentPresensiBinding
 import com.ardxclient.absenspn.model.ApiResponse
 import com.ardxclient.absenspn.model.response.AbsenResponse
+import com.ardxclient.absenspn.model.response.KelasResponse
 import com.ardxclient.absenspn.model.response.MapelResponse
 import com.ardxclient.absenspn.model.response.UserLoginResponse
 import com.ardxclient.absenspn.service.ApiClient
@@ -163,16 +165,17 @@ class PresensiFragment : Fragment(R.layout.fragment_presensi) {
         // === Handle Kelas List
         val call = ApiClient.apiService.getKelas()
 
-        call.enqueue(object: Callback<ApiResponse<ArrayList<String>>>{
+        call.enqueue(object: Callback<ApiResponse<ArrayList<KelasResponse>>>{
             override fun onResponse(
-                call: Call<ApiResponse<ArrayList<String>>>,
-                response: Response<ApiResponse<ArrayList<String>>>
+                call: Call<ApiResponse<ArrayList<KelasResponse>>>,
+                response: Response<ApiResponse<ArrayList<KelasResponse>>>
             ) {
                 if (response.isSuccessful){
                     val apiResponse = response.body()
                     if (apiResponse?.data != null) {
                         val data = apiResponse.data
-                        val kelasAdapter = ArrayAdapter(requireContext(), R.layout.kelas_item, data)
+                        //val kelasAdapter = ArrayAdapter(requireContext(), R.layout.kelas_item, data)
+                        val kelasAdapter = UserKelasAdapter(requireContext(), data)
                         binding.kelasListView.setAdapter(kelasAdapter)
                     }else{
                         Utils.showToast(requireContext(), "Tidak ada data kelas.")
@@ -182,14 +185,14 @@ class PresensiFragment : Fragment(R.layout.fragment_presensi) {
                 }
             }
 
-            override fun onFailure(call: Call<ApiResponse<ArrayList<String>>>, t: Throwable) {
+            override fun onFailure(call: Call<ApiResponse<ArrayList<KelasResponse>>>, t: Throwable) {
                 Utils.showToast(requireContext(), t.message.toString())
             }
         })
 
         binding.kelasListView.setOnItemClickListener { parent, view, position, id ->
-            val selectedKelas = parent.getItemAtPosition(position) as String
-            selectedKelasTitle = selectedKelas
+            val selectedKelas = parent.getItemAtPosition(position) as KelasResponse
+            selectedKelasTitle = selectedKelas.kelas
         }
     }
 

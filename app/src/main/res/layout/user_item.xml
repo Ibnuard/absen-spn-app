@@ -11,30 +11,41 @@
         android:layout_height="wrap_content"
         android:layout_margin="4dp"
         app:cardCornerRadius="4dp">
-        <LinearLayout
-            android:id="@+id/card_info"
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:padding="14dp"
-            android:orientation="vertical">
-            <TextView
-                android:id="@+id/tvTitle"
+            android:padding="14dp">
+            <LinearLayout
+                android:id="@+id/card_info"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:orientation="vertical">
+                <TextView
+                    android:id="@+id/tvTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/poppins_regular"
+                    android:textSize="14sp"
+                    android:textColor="@color/black"
+                    android:textStyle="bold"
+                    android:text="Kelas Java"/>
+                <TextView
+                    android:id="@+id/tvNIM"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/poppins_regular"
+                    android:textSize="12sp"
+                    android:textColor="@color/black"
+                    android:text="Kelas Java"/>
+            </LinearLayout>
+            <ImageView
+                android:id="@+id/btn_trash"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/poppins_regular"
-                android:textSize="14sp"
-                android:textColor="@color/black"
-                android:textStyle="bold"
-                android:text="Kelas Java"/>
-            <TextView
-                android:id="@+id/tvNIM"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/poppins_regular"
-                android:textSize="12sp"
-                android:textColor="@color/black"
-                android:text="Kelas Java"/>
-        </LinearLayout>
+                android:layout_centerVertical="true"
+                android:layout_alignParentEnd="true"
+                android:src="@drawable/ic_delete"/>
+        </RelativeLayout>
     </com.google.android.material.card.MaterialCardView>
 </FrameLayout>

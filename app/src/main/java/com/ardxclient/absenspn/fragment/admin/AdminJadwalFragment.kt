@@ -1,9 +1,11 @@
 package com.ardxclient.absenspn.fragment.admin
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.ardxclient.absenspn.JadwalInputActivity
 import com.ardxclient.absenspn.R
 import com.ardxclient.absenspn.adapter.JadwalAdapter
 import com.ardxclient.absenspn.databinding.FragmentAdminJadwalBinding
@@ -29,6 +31,11 @@ class AdminJadwalFragment : Fragment(R.layout.fragment_admin_jadwal) {
             //loading
             spinner.visibility = View.VISIBLE
             tvNoData.visibility = View.GONE
+
+            fab.setOnClickListener {
+                val intent = Intent(requireContext(), JadwalInputActivity::class.java)
+                startActivity(intent)
+            }
         }
 
         getAllJadwal()
@@ -68,10 +75,21 @@ class AdminJadwalFragment : Fragment(R.layout.fragment_admin_jadwal) {
         if (data?.size!! > 0){
             binding.rvJadwal.visibility = View.VISIBLE
             binding.tvNoData.visibility = View.GONE
-            binding.rvJadwal.adapter = JadwalAdapter(data)
+            binding.rvJadwal.adapter = JadwalAdapter(data, object : JadwalAdapter.onJadwalListener{
+                override fun onItemClicked(item: JadwalResponse) {
+                    val intent = Intent(requireContext(), JadwalInputActivity::class.java)
+                    intent.putExtra("JADWAL_DATA", item)
+                    startActivity(intent)
+                }
+            })
         }else{
             binding.rvJadwal.visibility = View.GONE
             binding.tvNoData.visibility = View.VISIBLE
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        getAllJadwal()
     }
 }
