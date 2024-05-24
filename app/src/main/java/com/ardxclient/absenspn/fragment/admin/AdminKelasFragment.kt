@@ -13,6 +13,7 @@ import com.ardxclient.absenspn.model.ApiResponse
 import com.ardxclient.absenspn.model.response.KelasResponse
 import com.ardxclient.absenspn.service.ApiClient
 import com.ardxclient.absenspn.utils.DialogUtils
+import com.ardxclient.absenspn.utils.LoadingModal
 import com.ardxclient.absenspn.utils.Utils
 import retrofit2.Call
 import retrofit2.Callback
@@ -20,10 +21,14 @@ import retrofit2.Response
 
 class AdminKelasFragment : Fragment(R.layout.fragment_admin_kelas) {
     private lateinit var binding: FragmentAdminKelasBinding
+    private lateinit var spinner: LoadingModal
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentAdminKelasBinding.bind(view)
+
+        // spinner
+        spinner = LoadingModal()
 
         with(binding){
             rvKelas.layoutManager = LinearLayoutManager(requireContext())
@@ -95,6 +100,7 @@ class AdminKelasFragment : Fragment(R.layout.fragment_admin_kelas) {
     }
 
     private fun onConfirmDelete(id: Int) {
+        spinner.show(activity?.supportFragmentManager!!, LoadingModal.TAG)
         val call = ApiClient.apiService.deleteKelas(id)
 
         call.enqueue(object: Callback<ApiResponse<Any>>{
@@ -102,6 +108,7 @@ class AdminKelasFragment : Fragment(R.layout.fragment_admin_kelas) {
                 call: Call<ApiResponse<Any>>,
                 response: Response<ApiResponse<Any>>
             ) {
+                spinner.dismiss()
                 if (response.isSuccessful){
                     Utils.showToast(requireContext(), "Berhasil menghapus kelas.")
                     getAllKelas()
@@ -111,6 +118,7 @@ class AdminKelasFragment : Fragment(R.layout.fragment_admin_kelas) {
             }
 
             override fun onFailure(call: Call<ApiResponse<Any>>, t: Throwable) {
+                spinner.dismiss()
                 Utils.showToast(requireContext(), t.message.toString())
             }
         })

@@ -19,6 +19,7 @@ import com.ardxclient.absenspn.service.ApiClient
 import com.ardxclient.absenspn.utils.DateTimeUtils
 import com.ardxclient.absenspn.utils.DialogUtils
 import com.ardxclient.absenspn.utils.InputUtils
+import com.ardxclient.absenspn.utils.LoadingModal
 import com.ardxclient.absenspn.utils.Utils
 import retrofit2.Call
 import retrofit2.Callback
@@ -26,10 +27,14 @@ import retrofit2.Response
 
 class JadwalInputActivity : AppCompatActivity() {
     private lateinit var binding: ActivityJadwalInputBinding
+    private lateinit var spinner: LoadingModal
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityJadwalInputBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        // spinner
+        spinner = LoadingModal()
 
         // Get User Data
         val jadwalData = intent.getSerializableExtra("JADWAL_DATA") as? JadwalResponse
@@ -66,6 +71,7 @@ class JadwalInputActivity : AppCompatActivity() {
     }
 
     private fun onDeleteData(id: Int?) {
+        spinner.show(supportFragmentManager, LoadingModal.TAG)
         val call = ApiClient.apiService.deleteJadwal(id!!)
 
         call.enqueue(object: Callback<ApiResponse<Any>>{
@@ -73,6 +79,7 @@ class JadwalInputActivity : AppCompatActivity() {
                 call: Call<ApiResponse<Any>>,
                 response: Response<ApiResponse<Any>>
             ) {
+                spinner.dismiss()
                 if (response.isSuccessful){
                     Utils.showToast(applicationContext, "Berhasil menghapus jadwal.")
                     finish()
@@ -82,6 +89,7 @@ class JadwalInputActivity : AppCompatActivity() {
             }
 
             override fun onFailure(call: Call<ApiResponse<Any>>, t: Throwable) {
+                spinner.dismiss()
                 Utils.showToast(applicationContext, t.message.toString())
             }
         })
@@ -92,6 +100,7 @@ class JadwalInputActivity : AppCompatActivity() {
             val isValidInput = InputUtils.isAllFieldComplete(tvMapel, tvTglJadwal, tvLokasi, tvJamMasuk, tvJamKeluar)
 
             if (isValidInput){
+                spinner.show(supportFragmentManager, LoadingModal.TAG)
                 val mapel = tvMapel.editText?.text.toString()
                 val lokasi = tvLokasi.editText?.text.toString()
                 val tanggal = tvTglJadwal.editText?.text.toString()
@@ -107,6 +116,7 @@ class JadwalInputActivity : AppCompatActivity() {
                         call: Call<ApiResponse<Any>>,
                         response: Response<ApiResponse<Any>>
                     ) {
+                        spinner.dismiss()
                         if (response.isSuccessful){
                             Utils.showToast(applicationContext, "Jadwal berhasil ditambahkan!")
                             finish()
@@ -116,6 +126,7 @@ class JadwalInputActivity : AppCompatActivity() {
                     }
 
                     override fun onFailure(call: Call<ApiResponse<Any>>, t: Throwable) {
+                        spinner.dismiss()
                         Utils.showToast(applicationContext, t.message.toString())
                     }
                 })

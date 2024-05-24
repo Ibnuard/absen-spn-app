@@ -11,6 +11,7 @@ import com.ardxclient.absenspn.model.request.MapelBody
 import com.ardxclient.absenspn.model.response.MapelResponse
 import com.ardxclient.absenspn.service.ApiClient
 import com.ardxclient.absenspn.utils.InputUtils
+import com.ardxclient.absenspn.utils.LoadingModal
 import com.ardxclient.absenspn.utils.Utils
 import retrofit2.Call
 import retrofit2.Callback
@@ -18,10 +19,14 @@ import retrofit2.Response
 
 class MapelInputActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMapelInputBinding
+    private lateinit var spinner: LoadingModal
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMapelInputBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        // spinner
+        spinner = LoadingModal()
 
         // handle existing data
         val mapelData = intent.getSerializableExtra("MAPEL_DATA") as? MapelResponse
@@ -49,6 +54,7 @@ class MapelInputActivity : AppCompatActivity() {
             val isValidInput = InputUtils.isAllFieldComplete(tvMapel, tvMaxKehadiran)
 
             if (isValidInput){
+                spinner.show(supportFragmentManager, LoadingModal.TAG)
                 val mapel = tvMapel.editText?.text.toString()
                 val maxPertemuan = tvMaxKehadiran.editText?.text.toString().toInt()
 
@@ -61,6 +67,7 @@ class MapelInputActivity : AppCompatActivity() {
                         call: Call<ApiResponse<Any>>,
                         response: Response<ApiResponse<Any>>
                     ) {
+                        spinner.dismiss()
                         if (response.isSuccessful){
                             Utils.showToast(applicationContext, "Berhasil menambahkan mapel.")
                             finish()
@@ -70,6 +77,7 @@ class MapelInputActivity : AppCompatActivity() {
                     }
 
                     override fun onFailure(call: Call<ApiResponse<Any>>, t: Throwable) {
+                        spinner.dismiss()
                         Utils.showToast(applicationContext, t.message.toString())
                     }
                 })

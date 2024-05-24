@@ -9,6 +9,7 @@ import com.ardxclient.absenspn.databinding.ActivityKelasInputBinding
 import com.ardxclient.absenspn.model.ApiResponse
 import com.ardxclient.absenspn.service.ApiClient
 import com.ardxclient.absenspn.utils.InputUtils
+import com.ardxclient.absenspn.utils.LoadingModal
 import com.ardxclient.absenspn.utils.Utils
 import retrofit2.Call
 import retrofit2.Callback
@@ -16,10 +17,14 @@ import retrofit2.Response
 
 class KelasInputActivity : AppCompatActivity() {
     private lateinit var binding: ActivityKelasInputBinding
+    private lateinit var spinner: LoadingModal
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityKelasInputBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        // spinner
+        spinner = LoadingModal()
 
         with(binding){
             topAppBar.setNavigationOnClickListener {
@@ -37,6 +42,7 @@ class KelasInputActivity : AppCompatActivity() {
             val isValidInput = InputUtils.isAllFieldComplete(tvKelas)
 
             if (isValidInput){
+                spinner.show(supportFragmentManager, LoadingModal.TAG)
                 val kelas = tvKelas.editText?.text.toString()
 
                 val call = ApiClient.apiService.addKelas(kelas)
@@ -46,6 +52,7 @@ class KelasInputActivity : AppCompatActivity() {
                         call: Call<ApiResponse<Any>>,
                         response: Response<ApiResponse<Any>>
                     ) {
+                        spinner.dismiss()
                         if (response.isSuccessful){
                             Utils.showToast(applicationContext, "Berhasil menambahkan kelas")
                             finish()
@@ -55,6 +62,7 @@ class KelasInputActivity : AppCompatActivity() {
                     }
 
                     override fun onFailure(call: Call<ApiResponse<Any>>, t: Throwable) {
+                        spinner.dismiss()
                         Utils.showToast(applicationContext, t.message.toString())
                     }
                 })
