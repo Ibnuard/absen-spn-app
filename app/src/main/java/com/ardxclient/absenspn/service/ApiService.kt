@@ -2,6 +2,7 @@ package com.ardxclient.absenspn.service
 
 import com.ardxclient.absenspn.model.ApiResponse
 import com.ardxclient.absenspn.model.request.JadwalBody
+import com.ardxclient.absenspn.model.request.MapelBody
 import com.ardxclient.absenspn.model.request.UpdateProfileBody
 import com.ardxclient.absenspn.model.request.UserLoginBody
 import com.ardxclient.absenspn.model.request.UserRegisterBody
@@ -53,6 +54,10 @@ interface ApiService {
     // Mapel
     @GET("/mapel")
     fun getMapel() : Call<ApiResponse<ArrayList<MapelResponse>>>
+    @POST("/mapel")
+    fun addMapel(@Body body:MapelBody): Call<ApiResponse<Any>>
+    @DELETE("/mapel/{id}")
+    fun deleteMapel(@Path("id") id: Int)  :Call<ApiResponse<Any>>
 
     // Absen
     @POST("absen/{id}")
