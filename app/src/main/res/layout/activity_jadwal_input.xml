@@ -32,16 +32,21 @@
             android:padding="14dp"
             android:orientation="vertical">
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/tvMapel"
+                style="@style/Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
-                android:hint="Mata pelajaran"
-                app:boxBackgroundColor="@color/inputBg">
-                <com.google.android.material.textfield.TextInputEditText
+                android:layout_marginBottom="8dp">
+                <AutoCompleteTextView
+                    android:id="@+id/mapelListView"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="text"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:inputType="none"
+                    android:text="@string/select_mapel"
+                    android:fontFamily="@font/poppins_medium"
+                    android:textSize="12sp"
+                    android:textColor="@color/black"
+                    android:dropDownHeight="200dp"
                     />
             </com.google.android.material.textfield.TextInputLayout>
             <com.google.android.material.textfield.TextInputLayout

@@ -111,14 +111,9 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
     private fun onLoadProfile(session: UserLoginResponse?) {
         with(binding){
             tvName.text = session?.nama
-            tvNIM.text = session?.nim.toString()
-            tvStatus.text = session?.status
-            tvKelas.text = session?.kelas
-            tvTahunMasuk.text = session?.tahun_masuk.toString()
-            tvWaliKelas.text = session?.wali_kelas
-            tvTanggalLahir.text = session?.tanggal_lahir
-            tvTempatLahir.text = session?.tempat_lahir
-            tvNomorHP.text = session?.nomor_telp.toString()
+            tvNIM.text = session?.nrp.toString()
+            tvJabatan.text = session?.jabatan.toString()
+            tvPangkat.text = session?.pangkat.toString()
         }
     }
 }

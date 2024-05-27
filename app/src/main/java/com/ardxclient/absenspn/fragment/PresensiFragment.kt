@@ -15,6 +15,7 @@ import com.ardxclient.absenspn.adapter.UserKelasAdapter
 import com.ardxclient.absenspn.databinding.FragmentPresensiBinding
 import com.ardxclient.absenspn.model.ApiResponse
 import com.ardxclient.absenspn.model.response.AbsenResponse
+import com.ardxclient.absenspn.model.response.AktifStatusResponse
 import com.ardxclient.absenspn.model.response.KelasResponse
 import com.ardxclient.absenspn.model.response.MapelResponse
 import com.ardxclient.absenspn.model.response.UserLoginResponse
@@ -67,11 +68,14 @@ class PresensiFragment : Fragment(R.layout.fragment_presensi) {
         // ===  Handle kelas and mapel
         handleKelasList()
         handleMapelList()
+        handleStatusAktif()
 
         with(binding){
             // Load User Data
             tvName.text = userSession.nama
-            tvNIM.text = userSession.nim.toString()
+            tvNIM.text = userSession.nrp.toString()
+
+            statusView.visibility = View.GONE
 
             profilePic.load(userSession.avatar)
 
@@ -105,6 +109,34 @@ class PresensiFragment : Fragment(R.layout.fragment_presensi) {
         }
     }
 
+    private fun handleStatusAktif() {
+        val call = ApiClient.apiService.getAktifStatus(userSession.id)
+
+        call.enqueue(object: Callback<ApiResponse<AktifStatusResponse>>{
+            override fun onResponse(
+                call: Call<ApiResponse<AktifStatusResponse>>,
+                response: Response<ApiResponse<AktifStatusResponse>>
+            ) {
+                if (response.isSuccessful){
+                    val result = response.body()?.data
+                    if (result?.kelas != null && result?.mapel != null ){
+                        val status = "Clock In : ${result.kelas} | ${result.mapel}"
+                        binding.tvStatusClockin.text = status
+                        binding.statusView.visibility = View.VISIBLE
+                    }else{
+                        binding.statusView.visibility = View.GONE
+                    }
+                }else{
+                    binding.statusView.visibility = View.GONE
+                }
+            }
+
+            override fun onFailure(call: Call<ApiResponse<AktifStatusResponse>>, t: Throwable) {
+                binding.statusView.visibility = View.GONE
+            }
+        })
+    }
+
     private fun onAbsen(type: String) {
         isLoading = true
         handleDropdownButton()
@@ -120,6 +152,9 @@ class PresensiFragment : Fragment(R.layout.fragment_presensi) {
                 if (response.isSuccessful){
                     val absenData = response.body()?.data
                     showDoneDialog(absenData?.jamAbsen, type)
+                    if (type == Constants.ABSEN_CLOCK_OUT){
+                        handleStatusAktif()
+                    }
                 }else{
                     Utils.showToast(requireContext(), response.message())
                 }
@@ -241,6 +276,7 @@ class PresensiFragment : Fragment(R.layout.fragment_presensi) {
         super.onResume()
         handleKelasList()
         handleMapelList()
+        handleStatusAktif()
 
         userSession = SessionUtils.getUser(requireContext())!!
         binding.profilePic.load(userSession.avatar)

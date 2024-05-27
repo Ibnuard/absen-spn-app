@@ -3,6 +3,7 @@ package com.ardxclient.absenspn
 import android.graphics.Rect
 import android.os.Bundle
 import android.view.MotionEvent
+import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import androidx.appcompat.app.AppCompatActivity
@@ -42,7 +43,7 @@ class UserInputActivity : AppCompatActivity() {
                 finish()
             }
 
-            DateTimeUtils.showDatePicker(this@UserInputActivity, etTglLahir)
+            //DateTimeUtils.showDatePicker(this@UserInputActivity, etTglLahir)
 
             btnSave.setOnClickListener {
                 if (userData != null){
@@ -56,19 +57,15 @@ class UserInputActivity : AppCompatActivity() {
 
     private fun onEditUser(id: Int) {
         with(binding){
-            val isValidInput = InputUtils.isAllFieldComplete(tvName, tvNIM, tvKelas, tvTahunMasuk, tvWaliKelas, tvTglLahir, tvTempatLahir, tvNoHP)
+            val isValidInput = InputUtils.isAllFieldComplete(tvName, tvNIM, tvJabatan, tvPangkat)
             if (isValidInput){
                 spinner.show(supportFragmentManager, LoadingModal.TAG)
                 val name = tvName.editText?.text.toString()
-                val nim = tvNIM.editText?.text.toString().toInt()
-                val kelas = tvKelas.editText?.text.toString()
-                val tahunMasuk = tvTahunMasuk.editText?.text.toString().toInt()
-                val waliKelas = tvWaliKelas.editText?.text.toString()
-                val tglLahir = tvTglLahir.editText?.text.toString()
-                val tempatLahir = tvTempatLahir.editText?.text.toString()
-                val noHP = tvNoHP.editText?.text.toString()
+                val nrd = tvNIM.editText?.text.toString().toInt()
+                val jabatan = tvJabatan.editText?.text.toString()
+                val pangkat = tvPangkat.editText?.text.toString()
 
-                val body = UserEditBody(name, nim, kelas, tahunMasuk, waliKelas, tglLahir, tempatLahir, noHP)
+                val body = UserEditBody(name, nrd, jabatan, pangkat)
 
                 val call = ApiClient.apiService.editUser(id, body)
 
@@ -96,22 +93,26 @@ class UserInputActivity : AppCompatActivity() {
     }
 
     private fun onAddUser() {
-        spinner.show(supportFragmentManager, LoadingModal.TAG)
         with(binding){
-            val isValidInput = InputUtils.isAllFieldComplete(tvName, tvUsername, tvPassword, tvNIM, tvKelas, tvTahunMasuk, tvWaliKelas, tvTglLahir, tvTempatLahir, tvNoHP)
+            val isValidInput = InputUtils.isAllFieldComplete(tvName, tvUsername, tvPassword, tvNIM, tvJabatan, tvPangkat)
             if (isValidInput){
+                val isValidUsername = InputUtils.isValidUsername(tvUsername)
+
+                if (!isValidUsername){
+                    Utils.showToast(applicationContext, "Username tidak valid.")
+                    return
+                }
+
+                spinner.show(supportFragmentManager, LoadingModal.TAG)
+
                 val name = tvName.editText?.text.toString()
                 val password = tvPassword.editText?.text.toString()
                 val username = tvUsername.editText?.text.toString()
-                val nim = tvNIM.editText?.text.toString().toInt()
-                val kelas = tvKelas.editText?.text.toString()
-                val tahunMasuk = tvTahunMasuk.editText?.text.toString().toInt()
-                val waliKelas = tvWaliKelas.editText?.text.toString()
-                val tglLahir = tvTglLahir.editText?.text.toString()
-                val tempatLahir = tvTempatLahir.editText?.text.toString()
-                val noHP = tvNoHP.editText?.text.toString()
+                val nrd = tvNIM.editText?.text.toString().toInt()
+                val jabatan = tvJabatan.editText?.text.toString()
+                val pangkat = tvPangkat.editText?.text.toString()
 
-                val body = UserRegisterBody(name, username, password, nim, kelas, tahunMasuk, waliKelas, tglLahir, tempatLahir, noHP)
+                val body = UserRegisterBody(name, username, password, nrd, jabatan, pangkat)
 
                 val call = ApiClient.apiService.userRegister(body)
 
@@ -141,14 +142,11 @@ class UserInputActivity : AppCompatActivity() {
     private fun initExistingData(data: UserLoginResponse) {
         with(binding){
             tvName.editText?.setText(data.nama)
-            tvUsername.editText?.setText(data.username)
-            tvNIM.editText?.setText(data.nim.toString())
-            tvKelas.editText?.setText(data.kelas)
-            tvTahunMasuk.editText?.setText(data.tahun_masuk.toString())
-            tvWaliKelas.editText?.setText(data.wali_kelas)
-            tvTglLahir.editText?.setText(data.tanggal_lahir)
-            tvTempatLahir.editText?.setText(data.tempat_lahir)
-            tvNoHP.editText?.setText(data.nomor_telp.toString())
+            tvUsername.visibility = View.GONE
+            tvPassword.visibility = View.GONE
+            tvNIM.editText?.setText(data.nrp.toString())
+            tvJabatan.editText?.setText(data.jabatan)
+            tvPangkat.editText?.setText(data.pangkat)
         }
     }
 

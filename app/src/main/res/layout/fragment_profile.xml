@@ -88,15 +88,6 @@
                                 android:textSize="12sp"
                                 android:textColor="@color/desc_label"
                                 android:text="123456789"/>
-                            <TextView
-                                android:id="@+id/tvStatus"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:fontFamily="@font/poppins_regular"
-                                android:textSize="12sp"
-                                android:textStyle="bold"
-                                android:textColor="@color/primary"
-                                android:text="Pelajar" />
                         </LinearLayout>
                     </LinearLayout>
                 </com.google.android.material.card.MaterialCardView>
@@ -131,10 +122,10 @@
                                     android:fontFamily="@font/poppins_regular"
                                     android:textSize="12sp"
                                     android:textColor="@color/desc_label"
-                                    android:text="@string/kelas_label"
+                                    android:text="@string/jabatan_label"
                                     android:layout_centerVertical="true"/>
                                 <TextView
-                                    android:id="@+id/tvKelas"
+                                    android:id="@+id/tvJabatan"
                                     android:layout_alignParentEnd="true"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
@@ -155,10 +146,10 @@
                                     android:fontFamily="@font/poppins_regular"
                                     android:textSize="12sp"
                                     android:textColor="@color/desc_label"
-                                    android:text="@string/tahun_masuk_label"
+                                    android:text="@string/pangkat_label"
                                     android:layout_centerVertical="true"/>
                                 <TextView
-                                    android:id="@+id/tvTahunMasuk"
+                                    android:id="@+id/tvPangkat"
                                     android:layout_alignParentEnd="true"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
@@ -168,102 +159,6 @@
                                     android:textColor="@color/black"
                                     android:layout_centerVertical="true"
                                     android:text="Value Tahun Masuk"/>
-                            </RelativeLayout>
-                            <RelativeLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:padding="4dp">
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:fontFamily="@font/poppins_regular"
-                                    android:textSize="12sp"
-                                    android:textColor="@color/desc_label"
-                                    android:text="@string/wali_kelas_label"
-                                    android:layout_centerVertical="true"/>
-                                <TextView
-                                    android:id="@+id/tvWaliKelas"
-                                    android:layout_alignParentEnd="true"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:fontFamily="@font/poppins_regular"
-                                    android:textSize="12sp"
-                                    android:textStyle="bold"
-                                    android:textColor="@color/black"
-                                    android:layout_centerVertical="true"
-                                    android:text="Value Kelas"/>
-                            </RelativeLayout>
-                            <RelativeLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:padding="4dp">
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:fontFamily="@font/poppins_regular"
-                                    android:textSize="12sp"
-                                    android:textColor="@color/desc_label"
-                                    android:text="@string/tgl_lahir_label"
-                                    android:layout_centerVertical="true"/>
-                                <TextView
-                                    android:id="@+id/tvTanggalLahir"
-                                    android:layout_alignParentEnd="true"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:fontFamily="@font/poppins_regular"
-                                    android:textSize="12sp"
-                                    android:textStyle="bold"
-                                    android:textColor="@color/black"
-                                    android:layout_centerVertical="true"
-                                    android:text="Value Kelas"/>
-                            </RelativeLayout>
-                            <RelativeLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:padding="4dp">
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:fontFamily="@font/poppins_regular"
-                                    android:textSize="12sp"
-                                    android:textColor="@color/desc_label"
-                                    android:text="@string/tempat_lahir_label"
-                                    android:layout_centerVertical="true"/>
-                                <TextView
-                                    android:id="@+id/tvTempatLahir"
-                                    android:layout_alignParentEnd="true"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:fontFamily="@font/poppins_regular"
-                                    android:textSize="12sp"
-                                    android:textStyle="bold"
-                                    android:textColor="@color/black"
-                                    android:layout_centerVertical="true"
-                                    android:text="Value Kelas"/>
-                            </RelativeLayout>
-                            <RelativeLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:padding="4dp">
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:fontFamily="@font/poppins_regular"
-                                    android:textSize="12sp"
-                                    android:textColor="@color/desc_label"
-                                    android:text="@string/nomor_label"
-                                    android:layout_centerVertical="true"/>
-                                <TextView
-                                    android:id="@+id/tvNomorHP"
-                                    android:layout_alignParentEnd="true"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:fontFamily="@font/poppins_regular"
-                                    android:textSize="12sp"
-                                    android:textStyle="bold"
-                                    android:textColor="@color/black"
-                                    android:layout_centerVertical="true"
-                                    android:text="Value Kelas"/>
                             </RelativeLayout>
                         </LinearLayout>
                     </LinearLayout>

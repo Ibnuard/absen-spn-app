@@ -15,4 +15,22 @@ object InputUtils {
         }
         return true
     }
+
+    fun isValidUsername(field: TextInputLayout): Boolean {
+        // Regex pattern to match only alphanumeric characters (no spaces or symbols)
+        val value = field.editText?.text
+
+        return if (value != null){
+            val usernamePattern = "^[a-zA-Z0-9]+$".toRegex()
+            val isValid = value.matches(usernamePattern)
+            if (isValid){
+                true
+            }else{
+                field.error = "Username tidak boleh mengandung spasi atau simbol."
+                false
+            }
+        }else{
+            false
+        }
+    }
 }

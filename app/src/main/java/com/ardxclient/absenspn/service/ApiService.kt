@@ -8,6 +8,7 @@ import com.ardxclient.absenspn.model.request.UserEditBody
 import com.ardxclient.absenspn.model.request.UserLoginBody
 import com.ardxclient.absenspn.model.request.UserRegisterBody
 import com.ardxclient.absenspn.model.response.AbsenResponse
+import com.ardxclient.absenspn.model.response.AktifStatusResponse
 import com.ardxclient.absenspn.model.response.HistoryResponse
 import com.ardxclient.absenspn.model.response.JadwalResponse
 import com.ardxclient.absenspn.model.response.KelasResponse
@@ -69,13 +70,15 @@ interface ApiService {
     fun editMapel(@Path("id") id:Int, @Body body:MapelBody): Call<ApiResponse<Any>>
 
     // Absen
-    @POST("absen/{id}")
+    @POST("/absen/{id}")
     fun absen(
         @Path("id") id: Int,
         @Query("type") type: String,
         @Query("kelas") kelas: String,
         @Query("mapel") mapel: Int
     ): Call<ApiResponse<AbsenResponse>>
+    @GET("/aktif-status/{id}")
+    fun getAktifStatus(@Path("id") id: Int)  :Call<ApiResponse<AktifStatusResponse>>
 
     @GET("/history/{id}")
     fun getHistory(

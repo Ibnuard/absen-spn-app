@@ -10,10 +10,12 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import com.ardxclient.absenspn.adapter.MapelAdapter
 import com.ardxclient.absenspn.databinding.ActivityJadwalInputBinding
 import com.ardxclient.absenspn.model.ApiResponse
 import com.ardxclient.absenspn.model.request.JadwalBody
 import com.ardxclient.absenspn.model.response.JadwalResponse
+import com.ardxclient.absenspn.model.response.MapelResponse
 import com.ardxclient.absenspn.model.response.UserLoginResponse
 import com.ardxclient.absenspn.service.ApiClient
 import com.ardxclient.absenspn.utils.DateTimeUtils
@@ -28,6 +30,8 @@ import retrofit2.Response
 class JadwalInputActivity : AppCompatActivity() {
     private lateinit var binding: ActivityJadwalInputBinding
     private lateinit var spinner: LoadingModal
+
+    private var selectedMapelTitle :String? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityJadwalInputBinding.inflate(layoutInflater)
@@ -41,6 +45,8 @@ class JadwalInputActivity : AppCompatActivity() {
         if (jadwalData !== null){
             initExistingData(jadwalData)
         }
+
+        handleMapelList()
 
         with(binding){
             topAppBar.setNavigationOnClickListener {
@@ -72,17 +78,16 @@ class JadwalInputActivity : AppCompatActivity() {
 
     private fun onEditData(id: Int) {
         with(binding){
-            val isValidInput = InputUtils.isAllFieldComplete(tvMapel, tvTglJadwal, tvLokasi, tvJamMasuk, tvJamKeluar)
+            val isValidInput = InputUtils.isAllFieldComplete(tvTglJadwal, tvLokasi, tvJamMasuk, tvJamKeluar)
 
-            if (isValidInput) {
+            if (isValidInput && selectedMapelTitle != null) {
                 spinner.show(supportFragmentManager, LoadingModal.TAG)
-                val mapel = tvMapel.editText?.text.toString()
                 val lokasi = tvLokasi.editText?.text.toString()
                 val tanggal = tvTglJadwal.editText?.text.toString()
                 val jamIn = tvJamMasuk.editText?.text.toString()
                 val jamOut = tvJamKeluar.editText?.text.toString()
 
-                val body = JadwalBody(mapel, tanggal, lokasi, jamIn, jamOut)
+                val body = JadwalBody(selectedMapelTitle!!, tanggal, lokasi, jamIn, jamOut)
 
                 val call = ApiClient.apiService.editJadwal(id, body)
 
@@ -136,17 +141,16 @@ class JadwalInputActivity : AppCompatActivity() {
 
     private fun onAddData() {
         with(binding){
-            val isValidInput = InputUtils.isAllFieldComplete(tvMapel, tvTglJadwal, tvLokasi, tvJamMasuk, tvJamKeluar)
+            val isValidInput = InputUtils.isAllFieldComplete(tvTglJadwal, tvLokasi, tvJamMasuk, tvJamKeluar)
 
-            if (isValidInput){
+            if (isValidInput && selectedMapelTitle != null){
                 spinner.show(supportFragmentManager, LoadingModal.TAG)
-                val mapel = tvMapel.editText?.text.toString()
                 val lokasi = tvLokasi.editText?.text.toString()
                 val tanggal = tvTglJadwal.editText?.text.toString()
                 val jamIn = tvJamMasuk.editText?.text.toString()
                 val jamOut = tvJamKeluar.editText?.text.toString()
 
-                val body = JadwalBody(mapel, tanggal, lokasi, jamIn, jamOut)
+                val body = JadwalBody(selectedMapelTitle!!, tanggal, lokasi, jamIn, jamOut)
 
                 val call = ApiClient.apiService.createJadwal(body)
 
@@ -169,6 +173,8 @@ class JadwalInputActivity : AppCompatActivity() {
                         Utils.showToast(applicationContext, t.message.toString())
                     }
                 })
+            }else{
+                Utils.showToast(applicationContext, "Input belum lengkap.")
             }
 
         }
@@ -178,11 +184,47 @@ class JadwalInputActivity : AppCompatActivity() {
     private fun initExistingData(data: JadwalResponse) {
         with(binding){
             btnDelete.visibility = View.VISIBLE
-            tvMapel.editText?.setText(data.title)
             tvLokasi.editText?.setText(data.lokasi)
             tvTglJadwal.editText?.setText(data.tanggal)
             tvJamMasuk.editText?.setText(data.jamIn)
             tvJamKeluar.editText?.setText(data.jamOut)
+            mapelListView.setText(data.title)
+            selectedMapelTitle = data.title
+        }
+    }
+
+    private fun handleMapelList(){
+        // === Handle Mapel List
+        val call = ApiClient.apiService.getMapel()
+
+        call.enqueue(object: Callback<ApiResponse<ArrayList<MapelResponse>>>{
+            override fun onResponse(
+                call: Call<ApiResponse<ArrayList<MapelResponse>>>,
+                response: Response<ApiResponse<ArrayList<MapelResponse>>>
+            ) {
+                if (response.isSuccessful){
+                    if (response.body()?.data !== null){
+                        val mapelAdapter = MapelAdapter(applicationContext, response.body()?.data!!)
+                        binding.mapelListView.setAdapter(mapelAdapter)
+                    }else{
+                        Utils.showToast(applicationContext, "Tidak ada data mata pelajaran.")
+                    }
+                }else{
+                    Utils.showToast(applicationContext, response.message())
+                }
+            }
+
+            override fun onFailure(
+                call: Call<ApiResponse<ArrayList<MapelResponse>>>,
+                t: Throwable
+            ) {
+                Utils.showToast(applicationContext, t.message.toString())
+            }
+        })
+
+        binding.mapelListView.setOnItemClickListener { parent, view, position, id ->
+            val selectedMapel = parent.getItemAtPosition(position) as MapelResponse
+            selectedMapelTitle = selectedMapel.name
         }
     }
 

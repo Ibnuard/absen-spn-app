@@ -35,7 +35,7 @@ class UserAdapter(private val listItems: ArrayList<UserLoginResponse>, private v
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = listItems[position]
         holder.tvName.text = item.nama
-        holder.tvNim.text = item.nim.toString()
+        holder.tvNim.text = item.nrp.toString()
         holder.container.setOnClickListener {
             listener.onItemClicked(item)
         }

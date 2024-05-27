@@ -7,7 +7,7 @@ data class AbsenResponse(
     @SerializedName("type") var type : String,
     @SerializedName("user_id") var userId : String,
     @SerializedName("name") var name : String,
-    @SerializedName("nim") var nim : String,
+    @SerializedName("nrp") var nrp : String,
     @SerializedName("username") var username : String,
     @SerializedName("kelas") var kelas: String,
     @SerializedName("mapel_id") var mapelId : String,
