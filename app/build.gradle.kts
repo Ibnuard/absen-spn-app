@@ -54,4 +54,5 @@ dependencies {
     implementation("com.airbnb.android:lottie:4.2.0")
     implementation("com.github.dhaval2404:imagepicker:2.1")
     implementation("io.coil-kt:coil:2.1.0")
+    implementation("androidx.core:core-splashscreen:1.0.0")
 }

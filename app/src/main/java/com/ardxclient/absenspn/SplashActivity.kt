@@ -1,39 +1,36 @@
 package com.ardxclient.absenspn
 
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
+import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import com.ardxclient.absenspn.databinding.ActivitySplashBinding
 import com.ardxclient.absenspn.utils.SessionUtils
 
 class SplashActivity : AppCompatActivity() {
     private lateinit var binding: ActivitySplashBinding
-
-    private val handler = Handler(Looper.getMainLooper())
-    private lateinit var runnable: Runnable
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
         binding = ActivitySplashBinding.inflate(layoutInflater)
-        setContentView(binding.root)
-
-        // === Handling Jam View
-        runnable = object : Runnable {
-            override fun run() {
-                checkSession()
-                // Post the Runnable again to update after one minute
-                handler.postDelayed(this, 5000)
-            }
+        // Check Android version and use appropriate splash screen method
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+            // Use SplashScreen API for Android 12 and above
+            val splashScreen = installSplashScreen()
+            splashScreen.setKeepOnScreenCondition { true }
+            checkSession()
+        } else {
+            // Use a traditional splash screen for below Android 12
+            setContentView(binding.root)
+            Thread {
+                Thread.sleep(3000)
+                runOnUiThread {
+                    checkSession()
+                }
+            }.start()
         }
-
-        // Start the initial Runnable
-        handler.post(runnable)
     }
 
     private fun checkSession() {
@@ -47,10 +44,5 @@ class SplashActivity : AppCompatActivity() {
             startActivity(intent)
             finish()
         }
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        handler.removeCallbacks(runnable)
     }
 }
