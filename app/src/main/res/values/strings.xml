@@ -6,14 +6,13 @@
     <string name="login_desc">Login to your account</string>
     <string name="presensi_label">Presensi</string>
     <string name="jadwal_label">Jadwal</string>
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="rekap_label">Rekap</string>
     <string name="profile_label">Profile</string>
     <string name="live_attendance_label">Live Attendance</string>
     <string name="select_class">Pilih Kelas</string>
-    <string name="btn_clockin">Clock In</string>
-    <string name="btn_clockout">Clock Out</string>
+    <string name="btn_clockin">Check In</string>
+    <string name="btn_clockout">Check Out</string>
     <string name="select_mapel">Pilih Mata Pelajaran</string>
     <string name="jadwal_title">Jadwal Pelajaran</string>
     <string name="profile_title">Profile</string>

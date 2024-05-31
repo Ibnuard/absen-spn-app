@@ -11,7 +11,7 @@ object RetrofitClient {
         .connectTimeout(300, TimeUnit.SECONDS)
         .build()
 
-    private const val BASE_URL = "http://149.129.226.242:3001/" //"http://149.129.226.242:3001/" //"http://10.0.2.2:3001/" //"https://esikapdev.my.id/"
+    private const val BASE_URL = "http://10.0.2.2:3001/" //"http://149.129.226.242:3001/" //"http://10.0.2.2:3001/" //"https://esikapdev.my.id/"
 
     val retrofit: Retrofit by lazy {
         Retrofit.Builder()

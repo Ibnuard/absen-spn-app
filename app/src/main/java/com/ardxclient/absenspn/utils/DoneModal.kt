@@ -29,9 +29,9 @@ class DoneModal(private val jamAbsen: String, private val type: String) : Dialog
         tvJam.text = jamAbsen
 
         if (type == Constants.ABSEN_CLOCK_IN){
-            tvTitle.text = "Berhasil Clock In"
+            tvTitle.text = "Berhasil Check In"
         }else{
-            tvTitle.text = "Berhasil Clock Out"
+            tvTitle.text = "Berhasil Check Out"
         }
 
         tvTitle.text

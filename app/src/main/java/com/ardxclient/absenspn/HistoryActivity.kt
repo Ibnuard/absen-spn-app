@@ -11,10 +11,13 @@ import com.ardxclient.absenspn.adapter.HistoryAdapter
 import com.ardxclient.absenspn.adapter.JadwalAdapter
 import com.ardxclient.absenspn.databinding.ActivityHistoryBinding
 import com.ardxclient.absenspn.model.ApiResponse
+import com.ardxclient.absenspn.model.response.AbsenResponse
 import com.ardxclient.absenspn.model.response.HistoryResponse
 import com.ardxclient.absenspn.model.response.RekapResponse
 import com.ardxclient.absenspn.model.response.UserLoginResponse
 import com.ardxclient.absenspn.service.ApiClient
+import com.ardxclient.absenspn.utils.Constants
+import com.ardxclient.absenspn.utils.DoneModal
 import com.ardxclient.absenspn.utils.SessionUtils
 import com.ardxclient.absenspn.utils.Utils
 import retrofit2.Call
@@ -25,6 +28,8 @@ class HistoryActivity : AppCompatActivity() {
     private lateinit var binding: ActivityHistoryBinding
     private lateinit var userSession: UserLoginResponse
     private lateinit var rekapData: RekapResponse
+
+    private var isLoading = false
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityHistoryBinding.inflate(layoutInflater)
@@ -86,10 +91,47 @@ class HistoryActivity : AppCompatActivity() {
         if (data?.size!! > 0){
             binding.tvNoData.visibility = View.GONE
             binding.rvAbsen.visibility = View.VISIBLE
-            binding.rvAbsen.adapter = HistoryAdapter(data)
+            binding.rvAbsen.adapter = HistoryAdapter(data, object : HistoryAdapter.onHistoryListener{
+                override fun onCheckoutPresses(item: HistoryResponse) {
+                    if (!isLoading){
+                        onCheckOut(item)
+                    }
+                }
+            })
         }else{
             binding.rvAbsen.visibility = View.GONE
             binding.tvNoData.visibility = View.VISIBLE
         }
+    }
+
+    private fun onCheckOut(data: HistoryResponse) {
+        isLoading = true
+        val call = ApiClient.apiService.absen(data.userId, Constants.ABSEN_CLOCK_OUT, data.kelas, data.mapelId)
+
+        call.enqueue(object: Callback<ApiResponse<AbsenResponse>>{
+            override fun onResponse(
+                call: Call<ApiResponse<AbsenResponse>>,
+                response: Response<ApiResponse<AbsenResponse>>
+            ) {
+                isLoading = false
+                if (response.isSuccessful){
+                    val absenData = response.body()?.data
+                    showDoneDialog(absenData?.jamAbsen, Constants.ABSEN_CLOCK_OUT)
+                    getAllHistory()
+                }else{
+                    Utils.showToast(applicationContext, response.message())
+                }
+            }
+
+            override fun onFailure(call: Call<ApiResponse<AbsenResponse>>, t: Throwable) {
+                isLoading = false
+                Utils.showToast(applicationContext, t.message.toString())
+            }
+        })
+    }
+
+    private fun showDoneDialog(jam: String?, type: String) {
+        val doneDialog = DoneModal(jam!!, type)
+        doneDialog.show(supportFragmentManager, DoneModal.TAG)
     }
 }
