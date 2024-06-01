@@ -10,6 +10,7 @@ import com.ardxclient.absenspn.databinding.ActivityAdminBinding
 import com.ardxclient.absenspn.fragment.admin.AdminJadwalFragment
 import com.ardxclient.absenspn.fragment.admin.AdminKelasFragment
 import com.ardxclient.absenspn.fragment.admin.AdminMapelFragment
+import com.ardxclient.absenspn.fragment.admin.AdminParamFragment
 import com.ardxclient.absenspn.fragment.admin.AdminUserFragment
 
 class AdminActivtiy : AppCompatActivity() {
@@ -24,6 +25,7 @@ class AdminActivtiy : AppCompatActivity() {
         val jadwalNav = AdminJadwalFragment()
         val kelasNav = AdminKelasFragment()
         val mapelNav = AdminMapelFragment()
+        val paramNav = AdminParamFragment()
 
         // Handle Deafult State
         setCurrentFragment(userNav)
@@ -46,6 +48,10 @@ class AdminActivtiy : AppCompatActivity() {
                 }
                 R.id.tab_admin_mapel -> {
                     setCurrentFragment(mapelNav)
+                    true
+                }
+                R.id.tab_admin_param -> {
+                    setCurrentFragment(paramNav)
                     true
                 }
                 else -> false

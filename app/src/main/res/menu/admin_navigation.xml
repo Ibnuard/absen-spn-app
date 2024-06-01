@@ -19,4 +19,9 @@
         android:enabled="true"
         android:icon="@drawable/ic_profile"
         android:title="Mapel"/>
+    <item
+        android:id="@+id/tab_admin_param"
+        android:enabled="true"
+        android:icon="@drawable/ic_param"
+        android:title="Param"/>
 </menu>

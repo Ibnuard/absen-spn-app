@@ -3,6 +3,7 @@ package com.ardxclient.absenspn.service
 import com.ardxclient.absenspn.model.ApiResponse
 import com.ardxclient.absenspn.model.request.JadwalBody
 import com.ardxclient.absenspn.model.request.MapelBody
+import com.ardxclient.absenspn.model.request.UpdateParamBody
 import com.ardxclient.absenspn.model.request.UpdateProfileBody
 import com.ardxclient.absenspn.model.request.UserEditBody
 import com.ardxclient.absenspn.model.request.UserLoginBody
@@ -13,6 +14,7 @@ import com.ardxclient.absenspn.model.response.HistoryResponse
 import com.ardxclient.absenspn.model.response.JadwalResponse
 import com.ardxclient.absenspn.model.response.KelasResponse
 import com.ardxclient.absenspn.model.response.MapelResponse
+import com.ardxclient.absenspn.model.response.ParamResponse
 import com.ardxclient.absenspn.model.response.RekapResponse
 import com.ardxclient.absenspn.model.response.UserLoginResponse
 import retrofit2.Call
@@ -90,4 +92,10 @@ interface ApiService {
     // Rekap
     @GET("/rekap/{id}")
     fun getRekap(@Path("id") id: Int, @Query("search") search: String?) : Call<ApiResponse<ArrayList<RekapResponse>>>
+
+    // Parameter
+    @GET("/param/1")
+    fun getParam() : Call<ApiResponse<ParamResponse>>
+    @POST("/param/1")
+    fun updateParam(@Body body:UpdateParamBody) : Call<ApiResponse<String>>
 }
