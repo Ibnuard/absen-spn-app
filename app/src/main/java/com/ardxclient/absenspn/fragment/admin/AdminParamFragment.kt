@@ -76,7 +76,7 @@ class AdminParamFragment : Fragment(R.layout.fragment_param) {
             ) {
                 if (response.isSuccessful){
                     val data = response.body()?.data
-                    binding.etJamIn.setText(data?.minimumClockIn)
+                    binding.etJamIn.setText(data?.maximumClockIn)
                     binding.etJamOut.setText(data?.maximumClockOut)
                 }else{
                     Utils.showToast(requireContext(), response.message())
