@@ -30,20 +30,13 @@
     <string name="riwayat_title">Riwayat Absensi</string>
     <string name="jabatan_label">Jabatan</string>
     <string name="pangkat_label">Pangkat</string>
-    <string-array name="kelas_list">
-        <item>Kelas Java</item>
-        <item>Kelas Kotlin</item>
-        <item>Kelas Python</item>
-        <item>Kelas CPP</item>
-    </string-array>
-    <string-array name="mapel_list">
-        <item>Mapel Pmerograman Dasar</item>
-        <item>Mapel OOP</item>
-        <item>Mapel Machine Learning</item>
-        <item>Mapel Data Scientist</item>
-        <item>Mapel Pmerograman Dasar II</item>
-        <item>Mapel OOP II</item>
-        <item>Mapel Machine Learning II</item>
-        <item>Mapel Data Scientist II</item>
+    <string-array name="jadwal_day">
+        <item>Senin</item>
+        <item>Selasa</item>
+        <item>Rabu</item>
+        <item>Kamis</item>
+        <item>Jumat</item>
+        <item>Sabtu</item>
+        <item>Minggu</item>
     </string-array>
 </resources>

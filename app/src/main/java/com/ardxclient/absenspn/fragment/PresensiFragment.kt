@@ -39,6 +39,7 @@ class PresensiFragment : Fragment(R.layout.fragment_presensi) {
 
     private var selectedKelasTitle: String? = null
     private var selectedMapelId: Int? = null
+    private var selectedKelasId: Int? = null
 
     private lateinit var userSession: UserLoginResponse
 
@@ -80,7 +81,7 @@ class PresensiFragment : Fragment(R.layout.fragment_presensi) {
 
             btnClockIn.setOnClickListener {
                 if (!isLoading){
-                    if (selectedKelasTitle != null && selectedMapelId != null){
+                    if (selectedKelasId != null && selectedMapelId != null){
                         onAbsen(Constants.ABSEN_CLOCK_IN)
                     }else{
                         Utils.showToast(requireContext(), "Anda belum memilih kelas atau mapel.")
@@ -91,7 +92,7 @@ class PresensiFragment : Fragment(R.layout.fragment_presensi) {
 
             btnClockOut.setOnClickListener {
                 if (!isLoading){
-                    if (selectedKelasTitle != null && selectedMapelId != null){
+                    if (selectedKelasId != null && selectedMapelId != null){
                         onAbsen(Constants.ABSEN_CLOCK_OUT)
                     }else{
                         Utils.showToast(requireContext(), "Anda belum memilih kelas atau mapel.")
@@ -123,15 +124,7 @@ class PresensiFragment : Fragment(R.layout.fragment_presensi) {
             ) {
                 if (response.isSuccessful){
                     val result = response.body()?.data
-                    if (result?.kelas != null && result.mapel != null ){
-                        val status = "Clock In : ${result.kelas} | ${result.mapel}"
-                        //binding.tvStatusClockin.text = status
-                        //binding.statusView.visibility = View.VISIBLE
-                        handleFilledPresensi(true, result)
-                    }else{
-                        //binding.statusView.visibility = View.GONE
-                        handleFilledPresensi(false, result)
-                    }
+                    handleFilledPresensi(result!!)
                 }else{
                    // binding.statusView.visibility = View.GONE
                     Utils.showToast(requireContext(), "Gagal mengambil status presensi!")
@@ -145,17 +138,21 @@ class PresensiFragment : Fragment(R.layout.fragment_presensi) {
         })
     }
 
-    private fun handleFilledPresensi(isFilled: Boolean, result: AktifStatusResponse?) {
+    private fun handleFilledPresensi(result: AktifStatusResponse) {
+
         with(binding){
-            if (isFilled){
+            if (result.userId != null){
                 kelasInput.visibility = View.GONE
                 filledKelas.visibility = View.VISIBLE
                 mapelInput.visibility = View.GONE
                 filledMapel.visibility = View.VISIBLE
 
                 // set value
-                filledKelas.editText?.setText(result?.kelas)
-                filledMapel.editText?.setText(result?.mapel)
+                filledKelas.editText?.setText(result.kelas)
+                filledMapel.editText?.setText(result.mapel)
+
+                selectedKelasId = result.kelasId
+                selectedMapelId = result.mapelId
             }else{
                 kelasInput.visibility = View.VISIBLE
                 filledKelas.visibility = View.GONE
@@ -168,7 +165,7 @@ class PresensiFragment : Fragment(R.layout.fragment_presensi) {
     private fun onAbsen(type: String) {
         isLoading = true
         handleDropdownButton()
-        val call = ApiClient.apiService.absen(userSession.id, type, selectedKelasTitle!!, selectedMapelId!!)
+        val call = ApiClient.apiService.absen(userSession.id, type, selectedKelasId!!, selectedMapelId!!)
 
         call.enqueue(object: Callback<ApiResponse<AbsenResponse>>{
             override fun onResponse(
@@ -254,6 +251,7 @@ class PresensiFragment : Fragment(R.layout.fragment_presensi) {
         binding.kelasListView.setOnItemClickListener { parent, view, position, id ->
             val selectedKelas = parent.getItemAtPosition(position) as KelasResponse
             selectedKelasTitle = selectedKelas.kelas
+            selectedKelasId = selectedKelas.id
         }
     }
 

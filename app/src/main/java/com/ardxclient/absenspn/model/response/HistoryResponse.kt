@@ -7,6 +7,7 @@ data class HistoryResponse(
     @SerializedName("kelas") var kelas: String,
     @SerializedName("mapel") var mapel: String,
     @SerializedName("mapel_id") var mapelId: Int,
+    @SerializedName("kelas_id") var kelasId: Int,
     @SerializedName("tgl_absen") var tglAbsen: String,
     @SerializedName("periode") var periode: String,
     @SerializedName("jam_absen_in") var jamAbsenIn: String,

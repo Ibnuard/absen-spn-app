@@ -76,8 +76,8 @@ interface ApiService {
     fun absen(
         @Path("id") id: Int,
         @Query("type") type: String,
-        @Query("kelas") kelas: String,
-        @Query("mapel") mapel: Int
+        @Query("kelas_id") kelasId: Int,
+        @Query("mapel_id") mapelId: Int
     ): Call<ApiResponse<AbsenResponse>>
     @GET("/aktif-status/{id}")
     fun getAktifStatus(@Path("id") id: Int)  :Call<ApiResponse<AktifStatusResponse>>

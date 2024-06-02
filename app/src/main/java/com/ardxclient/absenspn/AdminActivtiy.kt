@@ -50,10 +50,6 @@ class AdminActivtiy : AppCompatActivity() {
                     setCurrentFragment(mapelNav)
                     true
                 }
-                R.id.tab_admin_param -> {
-                    setCurrentFragment(paramNav)
-                    true
-                }
                 else -> false
             }
         }

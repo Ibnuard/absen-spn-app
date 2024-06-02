@@ -106,7 +106,7 @@ class HistoryActivity : AppCompatActivity() {
 
     private fun onCheckOut(data: HistoryResponse) {
         isLoading = true
-        val call = ApiClient.apiService.absen(data.userId, Constants.ABSEN_CLOCK_OUT, data.kelas, data.mapelId)
+        val call = ApiClient.apiService.absen(data.userId, Constants.ABSEN_CLOCK_OUT, data.kelasId, data.mapelId)
 
         call.enqueue(object: Callback<ApiResponse<AbsenResponse>>{
             override fun onResponse(

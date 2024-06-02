@@ -38,11 +38,10 @@ class JadwalAdapter(
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = listItems[position]
         val jam = "${item.jamIn} - ${item.jamOut}"
-        val tanggal = DateTimeUtils.formatFullDate(item.tanggal)
 
         holder.tvMapel.text = item.title
         holder.tvLokasi.text = item.lokasi
-        holder.tvTanggal.text = tanggal
+        holder.tvTanggal.text = item.jadwalDay
         holder.tvWaktu.text = jam
         holder.container.setOnClickListener {
             listener?.onItemClicked(item)

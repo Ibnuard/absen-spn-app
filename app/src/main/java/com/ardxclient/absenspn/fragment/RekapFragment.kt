@@ -24,6 +24,8 @@ class RekapFragment : Fragment(R.layout.fragment_rekap) {
     private lateinit var binding: FragmentRekapBinding
     private lateinit var userSession: UserLoginResponse
 
+    private var isShowX = false
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentRekapBinding.bind(view)
@@ -75,9 +77,15 @@ class RekapFragment : Fragment(R.layout.fragment_rekap) {
         getAllRekap(keyword)
 
         if (keyword.isNotEmpty()){
-            binding.searchBar.inflateMenu(R.menu.search_menu)
+            if (!isShowX){
+                isShowX = true
+                binding.searchBar.inflateMenu(R.menu.search_menu)
+            }
         }else{
-            binding.searchBar.menu.clear()
+            if (isShowX){
+                isShowX = false
+                binding.searchBar.menu.clear()
+            }
         }
 
     }
