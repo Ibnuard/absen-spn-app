@@ -5,6 +5,7 @@ import com.google.gson.annotations.SerializedName
 data class HistoryResponse(
     @SerializedName("user_id") var userId: Int,
     @SerializedName("kelas") var kelas: String,
+    @SerializedName("name") var name: String? = null,
     @SerializedName("mapel") var mapel: String,
     @SerializedName("mapel_id") var mapelId: Int,
     @SerializedName("kelas_id") var kelasId: Int,
@@ -12,5 +13,5 @@ data class HistoryResponse(
     @SerializedName("periode") var periode: String,
     @SerializedName("jam_absen_in") var jamAbsenIn: String,
     @SerializedName("jam_absen_out") var jamAbsenOut: String,
-    @SerializedName("isCanCheckOut") var isCanCheckOut: Boolean
+    @SerializedName("isCanCheckOut") var isCanCheckOut: Int
 )

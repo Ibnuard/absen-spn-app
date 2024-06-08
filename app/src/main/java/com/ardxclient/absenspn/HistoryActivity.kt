@@ -2,13 +2,9 @@ package com.ardxclient.absenspn
 
 import android.os.Bundle
 import android.view.View
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.ardxclient.absenspn.adapter.HistoryAdapter
-import com.ardxclient.absenspn.adapter.JadwalAdapter
 import com.ardxclient.absenspn.databinding.ActivityHistoryBinding
 import com.ardxclient.absenspn.model.ApiResponse
 import com.ardxclient.absenspn.model.response.AbsenResponse
@@ -26,7 +22,7 @@ import retrofit2.Response
 
 class HistoryActivity : AppCompatActivity() {
     private lateinit var binding: ActivityHistoryBinding
-    private lateinit var userSession: UserLoginResponse
+    private var userSession: UserLoginResponse? =null
     private lateinit var rekapData: RekapResponse
 
     private var isLoading = false
@@ -39,7 +35,10 @@ class HistoryActivity : AppCompatActivity() {
         rekapData = (intent.getSerializableExtra("REKAP_DATA") as? RekapResponse)!!
 
         // Get user session
-        userSession = SessionUtils.getUser(this)!!
+        if (!intent.getBooleanExtra("FROM_ADMIN", false)){
+            userSession = SessionUtils.getUser(this)!!
+        }
+
 
         with(binding){
             topAppBar.setNavigationOnClickListener {
@@ -54,11 +53,15 @@ class HistoryActivity : AppCompatActivity() {
             tvNoData.visibility = View.GONE
         }
 
-        getAllHistory()
+        if (userSession != null){
+            getAllHistory()
+        }else{
+            getAdminHistory(true)
+        }
     }
 
     private fun getAllHistory() {
-        val call = ApiClient.apiService.getHistory(userSession.id, rekapData.mapelId, rekapData.periode)
+        val call = ApiClient.apiService.getHistory(userSession!!.id, rekapData.mapelId, rekapData.periode)
 
         call.enqueue(object: Callback<ApiResponse<ArrayList<HistoryResponse>>>{
             override fun onResponse(
@@ -67,7 +70,7 @@ class HistoryActivity : AppCompatActivity() {
             ) {
                 binding.spinner.visibility = View.GONE
                 if (response.isSuccessful){
-                    setupRecyclerView(response.body()?.data)
+                    setupRecyclerView(response.body()?.data, false)
                 }else{
                     binding.rvAbsen.visibility = View.GONE
                     binding.tvNoData.visibility = View.VISIBLE
@@ -87,7 +90,37 @@ class HistoryActivity : AppCompatActivity() {
         })
     }
 
-    private fun setupRecyclerView(data: ArrayList<HistoryResponse>?) {
+    private fun getAdminHistory(fromAdmin: Boolean) {
+        val call = ApiClient.apiService.getHistoryAll(rekapData.mapelId, rekapData.periode)
+
+        call.enqueue(object: Callback<ApiResponse<ArrayList<HistoryResponse>>>{
+            override fun onResponse(
+                call: Call<ApiResponse<ArrayList<HistoryResponse>>>,
+                response: Response<ApiResponse<ArrayList<HistoryResponse>>>
+            ) {
+                binding.spinner.visibility = View.GONE
+                if (response.isSuccessful){
+                    setupRecyclerView(response.body()?.data, fromAdmin)
+                }else{
+                    binding.rvAbsen.visibility = View.GONE
+                    binding.tvNoData.visibility = View.VISIBLE
+                    Utils.showToast(applicationContext, response.message())
+                }
+            }
+
+            override fun onFailure(
+                call: Call<ApiResponse<ArrayList<HistoryResponse>>>,
+                t: Throwable
+            ) {
+                binding.rvAbsen.visibility = View.GONE
+                binding.spinner.visibility = View.GONE
+                binding.tvNoData.visibility = View.VISIBLE
+                Utils.showToast(applicationContext, t.message.toString())
+            }
+        })
+    }
+
+    private fun setupRecyclerView(data: ArrayList<HistoryResponse>?, fromAdmin: Boolean) {
         if (data?.size!! > 0){
             binding.tvNoData.visibility = View.GONE
             binding.rvAbsen.visibility = View.VISIBLE
@@ -97,7 +130,7 @@ class HistoryActivity : AppCompatActivity() {
                         onCheckOut(item)
                     }
                 }
-            })
+            }, fromAdmin)
         }else{
             binding.rvAbsen.visibility = View.GONE
             binding.tvNoData.visibility = View.VISIBLE

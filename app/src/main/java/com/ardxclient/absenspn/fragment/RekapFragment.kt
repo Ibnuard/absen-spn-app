@@ -130,7 +130,7 @@ class RekapFragment : Fragment(R.layout.fragment_rekap) {
                     intent.putExtra("REKAP_DATA", item)
                     startActivity(intent)
                 }
-            })
+            }, false)
         }else{
             binding.rvRekap.visibility = View.GONE
             binding.tvNoData.visibility = View.VISIBLE

@@ -89,9 +89,17 @@ interface ApiService {
         @Query("periode") periode: String
     ): Call<ApiResponse<ArrayList<HistoryResponse>>>
 
+    @GET("/history")
+    fun getHistoryAll(
+        @Query("mapelId") mapelId: Int,
+        @Query("periode") periode: String
+    ): Call<ApiResponse<ArrayList<HistoryResponse>>>
+
     // Rekap
     @GET("/rekap/{id}")
     fun getRekap(@Path("id") id: Int, @Query("search") search: String?) : Call<ApiResponse<ArrayList<RekapResponse>>>
+    @GET("/rekap")
+    fun getAllRekap(@Query("search") search: String?) : Call<ApiResponse<ArrayList<RekapResponse>>>
 
     // Parameter
     @GET("/param/1")

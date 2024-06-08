@@ -30,6 +30,14 @@
                     android:textStyle="bold"
                     android:text="Kelas Java"/>
                 <TextView
+                    android:id="@+id/tvName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/poppins_medium"
+                    android:textSize="12sp"
+                    android:textColor="@color/desc_label"
+                    android:text="Senin, 18 Januari 2024"/>
+                <TextView
                     android:id="@+id/tvTanggal"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
